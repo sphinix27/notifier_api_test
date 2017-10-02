@@ -1,11 +1,11 @@
 require_relative '../../support/utils/api_request'
 require_relative '../../support/utils/request_manager'
 
-Given(/^I make a '(\w+)' request to '(.+)'$/) do |method, endpoint|
+Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
   @method = method
   @endpoint = endpoint
 end
-When(/^I execute the request$/) do
+When(/^I execute the request to the endpoint$/) do
   smoke = ApiRequest.new(@endpoint)
   smoke.method = @method
   smoke.append_endpoint
