@@ -1,0 +1,10 @@
+inherit_from: .rubocop_todo.yml
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Style/GlobalVars:
+  Description: 'Do not introduce global variables.'
+  StyleGuide: '#instance-vars'
+  Reference: 'http://www.zenspider.com/Languages/Ruby/QuickRef.html'
+  Enabled: false
