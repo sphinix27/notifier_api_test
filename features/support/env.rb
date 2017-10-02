@@ -19,25 +19,15 @@ def load_app_config_file(filename)
   config
 end
 
-def load_bd_config_file(filename)
-  config_file = find_config_file(filename)
-  config_bd = YAML.load_file(config_file)
-  $bd_context = config_bd['database']['connection']
-  config_bd
-end
-
 AfterConfiguration do
-  # read config file
   configuration = load_app_config_file('env.yml')
-  configuration_bd = load_bd_config_file('env.yml')
-  # Load application configuration parameters
   $app_host = configuration['app']['host']
   $app_port = configuration['app']['port']
   $app_root = configuration['app']['rootPath']
-  $bd_connection = configuration_bd['database']['connection']
-  $bd_host = configuration_bd['database']['host']
-  $bd_port = configuration_bd['database']['port']
-  $bd_database = configuration_bd['database']['database']
-  $bd_username = configuration_bd['database']['username']
-  $bd_password = configuration_bd['database']['password']
+  $bd_connection = configuration['database']['connection']
+  $bd_host = configuration['database']['host']
+  $bd_port = configuration['database']['port']
+  $bd_database = configuration['database']['database']
+  $bd_username = configuration['database']['username']
+  $bd_password = configuration['database']['password']
 end
