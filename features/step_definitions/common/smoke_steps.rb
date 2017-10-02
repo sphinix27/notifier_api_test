@@ -1,5 +1,5 @@
-require_relative '../../features/support/utils/api_request'
-require_relative '../../features/support/utils/request_manager'
+require_relative '../../support/utils/api_request'
+require_relative '../../support/utils/request_manager'
 
 Given(/^I make a '(\w+)' request to '(.+)'$/) do |method, endpoint|
   @method = method
