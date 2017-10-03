@@ -1,5 +1,6 @@
 @crud
 Feature: Post request for channels endpoint
+  @delete_channel
   Scenario: Create a new channel
     Given I make a 'POST' request to '/channels' endpoint
     And I set the body as:
@@ -14,6 +15,7 @@ Feature: Post request for channels endpoint
     """
     When I execute the request to the endpoint
     Then I expect a '200' status code
+    And I save the id
     And I build the response for "channel" with
     """
       {
