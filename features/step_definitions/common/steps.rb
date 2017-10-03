@@ -5,7 +5,7 @@ Given(/^I make a '(\w+)' request to '(.+)'$/) do |method, endpoint|
 end
 
 When(/^I execute the request$/) do
-   @response = RequestManager.execute_request(@request)
+  @response = RequestManager.execute_request(@request)
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|

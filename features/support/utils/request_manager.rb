@@ -1,5 +1,3 @@
-require 'rest-client'
-
 # Request Manager class.
 module RequestManager
   def self.execute_request(api_request)
