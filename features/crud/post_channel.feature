@@ -1,6 +1,6 @@
 Feature: Post request for channels endpoint
   Scenario: Create a new channel
-    Given I make a 'POST' request to '/channels'
+    Given I make a 'POST' request to '/channels' endpoint
     When I set the body as:
     """
     {
@@ -11,12 +11,12 @@ Feature: Post request for channels endpoint
       }
     }
     """
-    And I execute the request
-    And I save the id as "channelId"
+    And I execute the request to the endpoint
     Then I expect a '200' status code
-    And The response body is
+    And I build the response for "channel" with
     """
       {
         "onFail": null
       }
     """
+    And The response body is the same as builded
