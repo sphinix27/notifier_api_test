@@ -12,4 +12,3 @@ gem 'report_builder'
 gem 'rest-client'
 gem 'rspec'
 gem 'rubocop', '~> 0.50.0', require: false
-
