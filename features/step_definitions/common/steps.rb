@@ -1,7 +1,6 @@
 Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
   @request = ApiRequest.new(EnpointBuilder.builder(endpoint))
   @request.method = method
-  puts EnpointBuilder.builder(endpoint)
 end
 
 When(/^I execute the request to the endpoint$/) do
@@ -41,7 +40,6 @@ end
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
 end
-
 
 Given(/^sleep$/) do
   sleep 3
