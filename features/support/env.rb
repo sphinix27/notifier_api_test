@@ -1,4 +1,7 @@
+require 'json'
 require 'pathname'
+require 'pg'
+require 'rest-client'
 require 'yaml'
 
 def find_config_file(filename)
