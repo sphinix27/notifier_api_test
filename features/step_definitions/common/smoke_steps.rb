@@ -1,7 +1,3 @@
-require_relative '../../support/utils/api_request'
-require_relative '../../support/utils/request_manager'
-require_relative '../../support/utils/response_manager'
-
 Given(/^I make a '(\w+)' request to '(.+)'$/) do |method, endpoint|
   # TODO: Method for build the endpoint
   @request = ApiRequest.new(endpoint)
@@ -9,7 +5,7 @@ Given(/^I make a '(\w+)' request to '(.+)'$/) do |method, endpoint|
 end
 
 When(/^I execute the request$/) do
-  @response = RequestManager.execute_request(@request)
+   @response = RequestManager.execute_request(@request)
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
@@ -17,12 +13,11 @@ Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
 end
 
 Then(/^The response body is$/) do |expected_body|
-  expect(ResponseManager.string_to_json(@response.body)).to eq(ResponseManager.string_to_json(expected_body))
   expect(JSON.parse(@response.body)).to eq JSON.parse(expected_body)
 end
 
 When(/^I set the body as:$/) do |body|
-  @request.body = ResponseManager.string_to_json body
+  @request.body = body
 end
 
 When(/^I save the id as "([^"]*)"$/) do |id|

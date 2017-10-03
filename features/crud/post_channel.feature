@@ -4,10 +4,10 @@ Feature: Post request for channels endpoint
     When I set the body as:
     """
     {
-      "name":"AT04",
-      "type":"WEB_HOOK",
-      "configuration":{
-        "url":"https://web.webhooks.com/services/..."
+      "name": "AT04-Slack-Demo",
+      "type": "SLACK",
+      "configuration": {
+        "url": "https://hooks.slack.com/services/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"
       }
     }
     """
@@ -17,11 +17,6 @@ Feature: Post request for channels endpoint
     And The response body is
     """
       {
-        "name": "AT04",
-        "type": "WEB_HOOK",
-        "configuration": {
-            "url":"https://web.webhooks.com/services/..."
-        },
         "onFail": null
       }
     """
