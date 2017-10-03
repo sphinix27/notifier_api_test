@@ -1,7 +1,8 @@
+@crud
 Feature: Post request for channels endpoint
   Scenario: Create a new channel
     Given I make a 'POST' request to '/channels' endpoint
-    When I set the body as:
+    And I set the body as:
     """
     {
       "name": "AT04-Slack-Demo",
@@ -11,7 +12,7 @@ Feature: Post request for channels endpoint
       }
     }
     """
-    And I execute the request to the endpoint
+    When I execute the request to the endpoint
     Then I expect a '200' status code
     And I build the response for "channel" with
     """
