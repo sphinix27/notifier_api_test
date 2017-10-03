@@ -52,3 +52,7 @@ end
 Then(/^I expect that the GET response it is empty$/) do
   expect(@response.body).to eq ''
 end
+
+Given(/^sleep$/) do
+  sleep 3
+end
