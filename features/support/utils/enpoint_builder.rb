@@ -11,7 +11,6 @@ module EnpointBuilder
       params = "#{params.gsub('#','%23')}"
       point = index.to_i.zero? ? "#{point}?#{params}" : "#{point}&#{params}"
     end
-    puts point
     point
   end
 end
