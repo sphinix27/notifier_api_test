@@ -40,3 +40,7 @@ end
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
 end
+
+Given(/^sleep$/) do
+  sleep 3
+end
