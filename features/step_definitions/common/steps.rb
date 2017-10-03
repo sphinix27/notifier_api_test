@@ -1,6 +1,5 @@
 Given(/^I make a '(\w+)' request to '(.+)'$/) do |method, endpoint|
-  # TODO: Method for build the endpoint
-  @request = ApiRequest.new(endpoint)
+  @request = ApiRequest.new(EnpointBuilder.builder endpoint)
   @request.method = method
 end
 
@@ -10,6 +9,12 @@ end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
   expect(@response.code).to eql(status_code_expected.to_i)
+end
+
+And(/^I make a '(PUT|POST)' request to '(.+)' with:$/) do |method, endpoint, param|
+  # table is a table.hashes.keys # => [:type, :slack]
+  @request = ApiRequest.new(EnpointBuilder.param endpoint, param.raw)
+  @request.method = method
 end
 
 Then(/^The response body is$/) do |expected_body|
