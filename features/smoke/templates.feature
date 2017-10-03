@@ -1,0 +1,6 @@
+Feature:Templates
+
+  Scenario: Get all Templates
+    Given I make a 'GET' request to '/templates' endpoint
+    When I execute the request to the endpoint
+    Then I expect a '200' status code
