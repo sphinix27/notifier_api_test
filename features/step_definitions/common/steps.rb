@@ -11,7 +11,7 @@ Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
   expect(@response.code).to eql(status_code_expected.to_i)
 end
 
-And(/^I make a '(PUT|POST)' request to '(.+)' with:$/) do |method, endpoint, param|
+And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
   @request = ApiRequest.new(EnpointBuilder.param(endpoint, param.raw))
   @request.method = method
 end
@@ -39,6 +39,8 @@ end
 
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
+  puts @builded_hash.to_json
+  puts @response.body
 end
 
 Given(/^sleep$/) do
