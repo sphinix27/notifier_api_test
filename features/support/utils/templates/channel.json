@@ -1,0 +1,9 @@
+{
+  "id": "integer",
+  "name": "string",
+  "type": "string",
+  "configuration": {
+    "url": "string"
+  },
+  "onFail": "boolean"
+}

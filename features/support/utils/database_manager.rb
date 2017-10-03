@@ -1,4 +1,3 @@
-require 'pg'
 # Conect to Database
 module DatabaseManager
   def self.conn
