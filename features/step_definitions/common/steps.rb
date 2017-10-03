@@ -41,6 +41,18 @@ Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
 end
 
+Then(/^I capture the response to the endpoint$/) do
+  @stored_response = @response.body
+end
+
+Then(/^I expect (?:PUT|POST) response is the same as GET response$/) do
+  expect(JSON.parse(@response.body)).to eq JSON.parse(@stored_response)
+end
+
+Then(/^I expect that the GET response it is empty$/) do
+  expect(@response.body).to eq ''
+end
+
 Given(/^sleep$/) do
   sleep 3
 end
