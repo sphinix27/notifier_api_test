@@ -1,9 +1,8 @@
 Given(/^I make a '(GET|POST)' request to '(.+)'$/) do |method, endpoint|
   @method = method
-  EnpointBuilder::builder endpoint
-  @endpoint = endpoint
+  @endpoint = EnpointBuilder::builder endpoint
 end
-When(/^I execute the request$/) do
+When(/^I execute the request to the endpoint$/) do
   smoke = ApiRequest.new(@endpoint)
   smoke.method = @method
   smoke.append_endpoint
@@ -20,12 +19,8 @@ Given(/^value id: (\d+)$/) do |id|
 end
 
 
-And(/^I make a '(PUT|POST)' request to '(.+)' with paramethers:$/) do |method, enpoint, paramether|
+And(/^I make a '(PUT|POST)' request to '(.+)' with paramethers:$/) do |method, endpoint, paramether|
   # table is a table.hashes.keys # => [:type, :slack]
-  paramether.column_names.each do |field|
-    puts field
-  end
-
-  puts paramether.content_columns
-
+  @method = method
+  @endpoint = EnpointBuilder::builderWithParamethers endpoint, paramether.raw
 end
