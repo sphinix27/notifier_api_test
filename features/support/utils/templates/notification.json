@@ -1,0 +1,10 @@
+{
+  "id": "integer",
+  "channelId": "integer",
+  "priority": "string",
+  "status": "string",
+  "recipients": ["string"],
+  "attachments": "boolean",
+  "content": "string",
+  "templateId": "boolean"
+}
