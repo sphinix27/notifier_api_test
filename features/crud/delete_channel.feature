@@ -16,15 +16,7 @@ Feature: CRUD for channels
     And I execute the request to the endpoint
     Then I expect a '200' status code
     And I save the id
-  @delete_channel
-  Scenario: Get channel by id
-    Given I make a 'GET' request to '/channels/$id' endpoint
+  Scenario: Delete channel by id
+    Given I make a 'DELETE' request to '/channels/$id' endpoint
     When I execute the request to the endpoint
     Then I expect a '200' status code
-    And I build the response for "channel" with
-    """
-      {
-        "onFail": null
-      }
-    """
-    And The response body is the same as builded

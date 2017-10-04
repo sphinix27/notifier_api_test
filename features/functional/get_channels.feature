@@ -1,5 +1,5 @@
-@crud
-Feature: CRUD for channels
+@functional
+Feature: Functional get for channels
 
   Background:
     Given I make a 'POST' request to '/channels' endpoint
@@ -7,7 +7,7 @@ Feature: CRUD for channels
     """
     {
       "name": "AT04-Slack-Demo",
-      "type": "SLACK",
+      "type": "WEB_HOOK",
       "configuration": {
         "url": "https://hooks.slack.com/services/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"
       }
@@ -17,8 +17,9 @@ Feature: CRUD for channels
     Then I expect a '200' status code
     And I save the id
   @delete_channel
-  Scenario: Get channel by id
-    Given I make a 'GET' request to '/channels/$id' endpoint
+  Scenario: Get channel of type WEB_HOOK
+    Given I make a 'GET' request to '/channels' with:
+    | type | WEB_HOOK |
     When I execute the request to the endpoint
     Then I expect a '200' status code
     And I build the response for "channel" with
