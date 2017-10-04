@@ -6,7 +6,7 @@ Feature: GET request for notification endpoint
     When I set the body as:
          """
          {
-         "channelId": 18 ,
+         "channelId": 510 ,
          "priority": "NORMAL",
          "recipients": ["#general"],
           "subject": "Test",
@@ -15,12 +15,12 @@ Feature: GET request for notification endpoint
           """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id'
 
   Scenario: Get notification by id
     Given I make a 'GET' request to '/notifications/$id' endpoint
     When I execute the request to the endpoint
-    Then I 'GET' request to '/notifications/$id' until the 'status' is 'DELIVERED'
+    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
 
 
 

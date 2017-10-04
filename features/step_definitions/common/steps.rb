@@ -60,18 +60,17 @@ Given(/^sleep$/) do
   sleep 3
 end
 
-And(/^I '(GET|POST)' request to '(.+)' until the '(.+)' is '(.+)'$/) do |endpoint, params, value|
+And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
   time = 0
-  result_expected = JSON.parse(@response.body)['notification'][params]
+  result_expected = JSON.parse(@response.body)[field][params]
   until result_expected == value
     sleep 1
     time += 1
     steps %{
-        And I make a 'GET' request to '#{endpoint}' endpoint
+        And I make a '#{method}' request to '#{endpoint}' endpoint
         And I execute the request to the endpoint
      }
-    result_expected = JSON.parse(@response.body)['notification'][params]
-
+    result_expected = JSON.parse(@response.body)[field][params]
     if time <= $maxWaitTime.to_i
       break
     end
