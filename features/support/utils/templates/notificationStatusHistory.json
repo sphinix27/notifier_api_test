@@ -1,0 +1,21 @@
+{
+  "notification": {
+    "id": "string",
+    "channelId": "integer",
+    "priority": "string",
+    "status": "string",
+    "recipients": ["string"],
+    "subject": "string",
+    "attachments": {},
+    "content": "string",
+    "templateId": "boolean"
+  },
+  "statusHistory": [
+    {
+      "id": "integer",
+      "status": "string",
+      "message":  "boolean",
+      "updatedOn": "string"
+    }
+  ]
+}
