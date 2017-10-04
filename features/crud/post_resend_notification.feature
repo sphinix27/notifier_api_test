@@ -5,7 +5,7 @@ Feature: CRUD resend notification
     When I set the body as:
       """
       {
-        "channelId": 8,
+        "channelId": 510,
         "priority": "HIGH",
         "recipients": ["#general"],
         "subject": "test API",
@@ -14,7 +14,7 @@ Feature: CRUD resend notification
       """
     When I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id'
 
 
   Scenario: resend a notification without param
@@ -23,10 +23,10 @@ Feature: CRUD resend notification
     When I execute the request to the endpoint
     Then I expect a '200' status code
 
-
-  Scenario: resend a notification with param
-    Given sleep
-    Given I make a 'POST' request to '/notifications/events/$id/resend' with:
-      | recipient | #general |
-    When I execute the request to the endpoint
-    Then I expect a '200' status code
+#
+#  Scenario: resend a notification with param
+#    Given sleep
+#    Given I make a 'POST' request to '/notifications/events/$id/resend' with:
+#      | recipient | #general |
+#    When I execute the request to the endpoint
+#    Then I expect a '200' status code

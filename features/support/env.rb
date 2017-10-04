@@ -3,7 +3,7 @@ require 'pathname'
 require 'pg'
 require 'rest-client'
 require 'yaml'
-
+$id_hash = {}
 def find_config_file(filename)
   root = Pathname.pwd
   until root.root?

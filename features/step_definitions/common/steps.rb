@@ -25,8 +25,9 @@ When(/^I set the body as:$/) do |body|
   @request.body = body
 end
 
-When(/^I save the id$/) do
-  $id = JSON.parse(@response.body)['id']
+When(/^I save the '(id)'$/) do |identify|
+  $id_hash.store(identify, JSON.parse(@response.body)[identify])
+  $identifier_name = identify
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
@@ -59,7 +60,7 @@ Given(/^sleep$/) do
   sleep 3
 end
 
-And(/^I '(?:GET|POST)' request to '(.+)' until the '(.+)' is '(.+)'$/) do |endpoint, params, value|
+And(/^I '(GET|POST)' request to '(.+)' until the '(.+)' is '(.+)'$/) do |endpoint, params, value|
   time = 0
   result_expected = JSON.parse(@response.body)['notification'][params]
   until result_expected == value
