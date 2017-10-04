@@ -21,7 +21,7 @@ Then(/^The response body is$/) do |expected_body|
 end
 
 When(/^I set the body as:$/) do |body|
-  @body = JSON.parse(body)
+  @body = body
   @request.body = body
 end
 
@@ -30,15 +30,12 @@ When(/^I save the id$/) do
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
-  ResponseManager.parse_file_to_hash(template)
-  ResponseManager.replace_in_hash(@body)
-  ResponseManager.replace_in_hash(JSON.parse(json))
-  response_hash = ResponseManager.diff_hash(JSON.parse(@response.body))
-  @builded_hash = ResponseManager.replace_in_hash(response_hash)
+  @builded_hash = ResponseManager.build_response(template, @body, json, @response.body)
 end
 
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
+  # expect(@builded_hash[0].keys).to contain_exactly("id", "name", "type", "configuration", "onFail")
   puts @builded_hash.to_json
   puts @response.body
 end
@@ -76,4 +73,8 @@ And(/^I '(?:GET|POST)' request to '(.+)' until the '(.+)' is '(.+)'$/) do |endpo
     end
   end
   expect(value).to eq result_expected
+end
+
+Then(/^I build the error response with$/) do |json|
+  @builded_hash = ResponseManager.build_error_response('error', json, @response.body)
 end

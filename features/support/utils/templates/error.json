@@ -1,0 +1,8 @@
+{
+  "timestamp": "integer",
+  "status": "integer",
+  "error": "string",
+  "exception": "string",
+  "message": "string",
+  "path": "string"
+}
