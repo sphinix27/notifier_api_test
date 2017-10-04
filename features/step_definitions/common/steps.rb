@@ -73,11 +73,9 @@ And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.
     result_expected = JSON.parse(@response.body)[field][params]
     break if result_expected == value
     sleep 1
-
     steps %{
         And I make a '#{method}' request to '#{endpoint}' endpoint
         And I execute the request to the endpoint
      }
-
   end
 end
