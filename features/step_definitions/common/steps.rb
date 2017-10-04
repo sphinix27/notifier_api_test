@@ -1,6 +1,7 @@
 Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
   @request = ApiRequest.new(EnpointBuilder.builder(endpoint))
   @request.method = method
+  EnpointBuilder.builder(endpoint)
 end
 
 When(/^I execute the request to the endpoint$/) do
@@ -9,6 +10,8 @@ end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
   expect(@response.code).to eql(status_code_expected.to_i)
+  # puts @response.code
+  # puts @response.body
 end
 
 And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
@@ -21,6 +24,12 @@ Then(/^The response body is$/) do |expected_body|
 end
 
 When(/^I set the body as:$/) do |body|
+  @body = JSON.parse(body)
+  @request.body = body
+end
+
+When(/^I set the body with id:$/) do |body|
+  body = body.gsub('$id', $id.to_s)
   @body = JSON.parse(body)
   @request.body = body
 end
@@ -60,19 +69,15 @@ Given(/^sleep$/) do
 end
 
 And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
-  time = 0
-  result_expected = JSON.parse(@response.body)[field][params]
-  until result_expected == value
+  $app_max_wait_time.times do
+    result_expected = JSON.parse(@response.body)[field][params]
+    break if result_expected == value
     sleep 1
-    time += 1
+
     steps %{
         And I make a '#{method}' request to '#{endpoint}' endpoint
         And I execute the request to the endpoint
      }
-    result_expected = JSON.parse(@response.body)[field][params]
-    if time <= $maxWaitTime.to_i
-      break
-    end
+
   end
-  expect(value).to eq result_expected
 end

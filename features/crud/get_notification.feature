@@ -6,7 +6,7 @@ Feature: GET request for notification endpoint
     When I set the body as:
          """
          {
-         "channelId": 353 ,
+         "channelId": 607 ,
          "priority": "NORMAL",
          "recipients": ["#general"],
           "subject": "Test",
