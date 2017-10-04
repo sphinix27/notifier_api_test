@@ -27,6 +27,7 @@ AfterConfiguration do
   $app_host = configuration['app']['host']
   $app_port = configuration['app']['port']
   $app_root = configuration['app']['rootPath']
+  $app_max_wait_time = configuration['app']['maxWaitTime']
   $bd_connection = configuration['database']['connection']
   $bd_host = configuration['database']['host']
   $bd_port = configuration['database']['port']

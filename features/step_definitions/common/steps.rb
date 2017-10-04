@@ -40,3 +40,22 @@ end
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
 end
+
+And(/^I '(?:GET|POST)' request to '(.+)' until the '(.+)' is '(.+)'$/) do |endpoint, params, value|
+  time = 0
+  result_expected = JSON.parse(@response.body)['notification'][params]
+  until result_expected == value
+    sleep 1
+    time += 1
+    steps %{
+        And I make a 'GET' request to '#{endpoint}' endpoint
+        And I execute the request to the endpoint
+     }
+    result_expected = JSON.parse(@response.body)['notification'][params]
+
+    if time <= $maxWaitTime.to_i
+      break
+    end
+  end
+  expect(value).to eq result_expected
+end

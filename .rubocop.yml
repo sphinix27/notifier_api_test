@@ -8,3 +8,6 @@ Style/GlobalVars:
   StyleGuide: '#instance-vars'
   Reference: 'http://www.zenspider.com/Languages/Ruby/QuickRef.html'
   Enabled: false
+
+Metrics/LineLength:
+  Max: 120
