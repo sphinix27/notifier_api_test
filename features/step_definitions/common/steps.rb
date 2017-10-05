@@ -9,6 +9,8 @@ When(/^I execute the request to the endpoint$/) do
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
+  puts @response.code
+  puts @response.body
   expect(@response.code).to eql(status_code_expected.to_i)
 end
 
@@ -29,7 +31,7 @@ end
 When(/^I set the body with id:$/) do |body|
   puts $id_hash[$identifier_name]
   body = body.gsub('$id', $id_hash[$identifier_name].to_s)
-  @body = JSON.parse(body)
+  @body = body
   @request.body = body
 end
 
@@ -92,4 +94,14 @@ And(/^I make a '(GET|POST)' request to '(.+)' until that '(.+)' is '(.+)'$/) do 
   end
 end
 
-
+Given(/^I create a Channel with the body as:$/) do |body|
+  steps %{
+         Given I make a 'POST' request to '/channels' endpoint
+         When I set the body as:
+         """
+          #{body}
+         """
+         And I execute the request to the endpoint
+         Then I expect a '200' status code
+       }
+end
