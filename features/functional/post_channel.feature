@@ -15,7 +15,7 @@ Feature: Post request for channels endpoint
     """
     When I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'channels'
     And I build the response for "channel" with
     """
       {
@@ -45,7 +45,7 @@ Feature: Post request for channels endpoint
     """
     When I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'channels'
     And I build the response for "channel" with
     """
       {

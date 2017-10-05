@@ -16,7 +16,7 @@ Feature: Functional get for channels with params type for EMAIL
     """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'channels'
   @delete_channel
   Scenario: Get channel of type EMAIL
     Given I make a 'GET' request to '/channels' with:

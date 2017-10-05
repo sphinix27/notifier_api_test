@@ -15,7 +15,7 @@ Feature: Negative request get channels with invalid type
     """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'channels'
   @delete_channel
   Scenario Outline: Get channel of invalid and empty type
     Given I make a 'GET' request to '/channels' with:
@@ -43,7 +43,7 @@ Feature: Negative request get channels with invalid type
     | name |  |
     When I execute the request to the endpoint
     Then I expect a '400' status code
-    And the response body contains:
+    And the response body contains excluding 'timestamp':
     """
       {
         "status": 400,
@@ -60,7 +60,7 @@ Feature: Negative request get channels with invalid type
     When I execute the request to the endpoint
     Then I expect a '404' status code
     And I expect that the GET response it is empty
-    And the response body contains:
+    And the response body contains excluding 'timestamp':
     """
     """
   @delete_channel
@@ -70,7 +70,7 @@ Feature: Negative request get channels with invalid type
     | ignoreCase | <Case> |
     When I execute the request to the endpoint
     Then I expect a '400' status code
-    And the response body contains:
+    And the response body contains excluding 'timestamp':
     """
       {
         "status": 400,
@@ -96,7 +96,7 @@ Feature: Negative request get channels with invalid type
     When I execute the request to the endpoint
     Then I expect a '404' status code
     And I expect that the GET response it is empty
-    And the response body contains:
+    And the response body contains excluding 'timestamp':
     """
     """
     Examples:

@@ -5,8 +5,6 @@ end
 
 When(/^I execute the request to the endpoint$/) do
   @response = RequestManager.execute_request(@request)
-  puts @response.code
-  puts @response.body
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
@@ -23,7 +21,6 @@ Then(/^The response body is$/) do |expected_body|
 end
 
 When(/^I set the body as:$/) do |body|
-  puts body
   @body = body
   @request.body = body
 end
@@ -100,12 +97,6 @@ Given(/^I create a Channel with the body as:$/) do |body|
          And I execute the request to the endpoint
          Then I expect a '200' status code
        }
-end
-
-Then(/^the response body contains:$/) do |json|
-  expect(json).to be_json_eql(@response.body).excluding("timestamp")
-  puts @response.body
-  puts json
 end
 
 Then(/^the response body contains excluding '([^"]*)':$/) do |exclude, json|
