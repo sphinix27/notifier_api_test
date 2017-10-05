@@ -12,7 +12,7 @@ Feature: delete template
     """
     When I execute the request to the endpoint
     Then I expect a '201' status code
-    And I save the id
+    And I save the 'id' of 'templates'
 
   Scenario: delete a specific template
     Given I make a 'Delete' request to '/templates/$id' endpoint

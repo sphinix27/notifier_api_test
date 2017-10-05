@@ -5,15 +5,16 @@ Feature: POST request for notification endpoint
     Given I create a Channel with the body as:
     """
     {
-      "name": "AT04-Slack-Demo-for-Notifications564",
+      "name": "AT04-Slack-Demo-for-Notifications89assasas88",
       "type": "SLACK",
       "configuration": {
         "url": "https://hooks.slack.com/services/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"
       }
     }
     """
-    And I save the id
+    And I save the 'id' of 'channels'
 
+  @delete_channel
   Scenario Outline: Send a new notification
     Given I make a 'POST' request to '/notifications' endpoint
     When I set the body with id:
@@ -38,5 +39,4 @@ Feature: POST request for notification endpoint
     Examples:
       | priority | recipients        | subject | content                          | status_code |
       | NORMAL   | "#general","main" | Test1   | A testing message from notifier1 | 200         |
-
 
