@@ -1,4 +1,5 @@
 require 'json'
+require 'json_spec/cucumber'
 require 'pathname'
 require 'pg'
 require 'rest-client'
@@ -34,4 +35,8 @@ AfterConfiguration do
   $bd_database = configuration['database']['database']
   $bd_username = configuration['database']['username']
   $bd_password = configuration['database']['password']
+end
+
+def last_json
+  # Just for initialize
 end

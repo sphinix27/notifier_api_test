@@ -17,53 +17,42 @@ Feature: Negative request get channels with invalid type
     Then I expect a '200' status code
     And I save the id
   @delete_channel
-  Scenario: Get channel of type ANOTHER or invalid
+  Scenario Outline: Get channel of invalid and empty type
     Given I make a 'GET' request to '/channels' with:
-    | type | ANOTHER |
+    | type | <Type> |
     When I execute the request to the endpoint
     Then I expect a '400' status code
-    And I build the error response with
+    And the response body contains excluding 'timestamp':
     """
       {
         "status": 400,
         "error": "Bad Request",
+        "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
         "message": "Bad Request",
         "path": "/channels"
       }
     """
-    And The response body is the same as builded
-  @delete_channel
-  Scenario: Get channel of type empty
-    Given I make a 'GET' request to '/channels' with:
-    | type |  |
-    When I execute the request to the endpoint
-    Then I expect a '400' status code
-    And I build the error response with
-    """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "message": "Bad Request",
-        "path": "/channels"
-      }
-    """
-    And The response body is the same as builded
+    Examples:
+    | Type    |
+    | ANOTHER |
+    |         |
+    | $       |
   @delete_channel
   Scenario: Get channel of name empty
     Given I make a 'GET' request to '/channels' with:
     | name |  |
     When I execute the request to the endpoint
     Then I expect a '400' status code
-    And I build the error response with
+    And the response body contains:
     """
       {
         "status": 400,
         "error": "Bad Request",
+        "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
         "message": "Bad Request",
         "path": "/channels"
       }
     """
-    And The response body is the same as builded
   @delete_channel
   Scenario: Get channel with nonexistent name
     Given I make a 'GET' request to '/channels' with:
@@ -71,88 +60,46 @@ Feature: Negative request get channels with invalid type
     When I execute the request to the endpoint
     Then I expect a '404' status code
     And I expect that the GET response it is empty
+    And the response body contains:
+    """
+    """
   @delete_channel
-  Scenario: Get channel with correct name and empty ignoreCase
+  Scenario Outline: Get channel with invalid name and ignoreCase
     Given I make a 'GET' request to '/channels' with:
-    | name       | AT04-Web-Hook-Demo |
-    | ignoreCase |                    |
+    | name       | <Name> |
+    | ignoreCase | <Case> |
     When I execute the request to the endpoint
     Then I expect a '400' status code
-    And I build the error response with
+    And the response body contains:
     """
       {
         "status": 400,
         "error": "Bad Request",
+        "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
         "message": "Bad Request",
         "path": "/channels"
       }
     """
-    And The response body is the same as builded
+    Examples:
+    | Name               | Case  |
+    | AT04-Web-Hook-Demo |       |
+    | AT04-Web-Hook-Demo | a     |
+    |                    | true  |
+    |                    |       |
+    |                    | false |
+
   @delete_channel
-  Scenario: Get channel with correct name and invalid ignoreCase
+  Scenario Outline: Get channel with nonexistent name and valid ignoreCase
     Given I make a 'GET' request to '/channels' with:
-    | name       | AT04-Web-Hook-Demo |
-    | ignoreCase | a                  |
+    | name       | <Name> |
+    | ignoreCase | <Case> |
     When I execute the request to the endpoint
-    Then I expect a '400' status code
-    And I build the error response with
+    Then I expect a '404' status code
+    And I expect that the GET response it is empty
+    And the response body contains:
     """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "message": "Bad Request",
-        "path": "/channels"
-      }
     """
-    And The response body is the same as builded
-  @delete_channel
-  Scenario: Get channel with empty name and valid ignoreCase
-    Given I make a 'GET' request to '/channels' with:
-    | name       |      |
-    | ignoreCase | true |
-    When I execute the request to the endpoint
-    Then I expect a '400' status code
-    And I build the error response with
-    """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "message": "Bad Request",
-        "path": "/channels"
-      }
-    """
-    And The response body is the same as builded
-  @delete_channel
-  Scenario: Get channel with empty name and valid ignoreCase
-    Given I make a 'GET' request to '/channels' with:
-    | name       |       |
-    | ignoreCase | false |
-    When I execute the request to the endpoint
-    Then I expect a '400' status code
-    And I build the error response with
-    """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "message": "Bad Request",
-        "path": "/channels"
-      }
-    """
-    And The response body is the same as builded
-  @delete_channel
-  Scenario: Get channel with empty name and empty ignoreCase
-    Given I make a 'GET' request to '/channels' with:
-    | name       |  |
-    | ignoreCase |  |
-    When I execute the request to the endpoint
-    Then I expect a '400' status code
-    And I build the error response with
-    """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "message": "Bad Request",
-        "path": "/channels"
-      }
-    """
-    And The response body is the same as builded
+    Examples:
+    | Name     | Case  |
+    | NoTExists | true  |
+    | NoTExists | false |

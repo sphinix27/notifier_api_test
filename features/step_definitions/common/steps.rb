@@ -1,17 +1,16 @@
 Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
   @request = ApiRequest.new(EnpointBuilder.builder(endpoint))
   @request.method = method
-  EnpointBuilder.builder(endpoint)
 end
 
 When(/^I execute the request to the endpoint$/) do
   @response = RequestManager.execute_request(@request)
+  puts @response.code
+  puts @response.body
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
   expect(@response.code).to eql(status_code_expected.to_i)
-  # puts @response.code
-  # puts @response.body
 end
 
 And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
@@ -24,6 +23,7 @@ Then(/^The response body is$/) do |expected_body|
 end
 
 When(/^I set the body as:$/) do |body|
+  puts body
   @body = body
   @request.body = body
 end
@@ -44,7 +44,6 @@ end
 
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
-  # expect(@builded_hash[0].keys).to contain_exactly("id", "name", "type", "configuration", "onFail")
   puts @builded_hash.to_json
   puts @response.body
 end
@@ -55,6 +54,7 @@ end
 
 Then(/^I expect (?:PUT|POST) response is the same as GET response$/) do
   expect(JSON.parse(@response.body)).to eq JSON.parse(@stored_response)
+  expect(@response.body).to eq @stored_response
 end
 
 Then(/^I expect that the GET response it is empty$/) do
@@ -80,4 +80,15 @@ end
 
 Then(/^I build the error response with$/) do |json|
   @builded_hash = ResponseManager.build_error_response('error', json, @response.body)
+end
+
+Then(/^the response body contains:$/) do |json|
+  expect(json).to be_json_eql(@response.body).excluding("timestamp")
+  puts @response.body
+  puts json
+end
+Then(/^the response body contains excluding '([^"]*)':$/) do |exclude, json|
+  expect(json).to be_json_eql(@response.body).excluding(exclude)
+  puts @response.body
+  puts json
 end
