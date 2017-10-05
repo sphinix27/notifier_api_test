@@ -5,6 +5,7 @@ end
 
 When(/^I execute the request to the endpoint$/) do
   @response = RequestManager.execute_request(@request)
+  puts @response
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
