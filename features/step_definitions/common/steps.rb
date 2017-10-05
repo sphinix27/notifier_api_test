@@ -9,9 +9,9 @@ When(/^I execute the request to the endpoint$/) do
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
+  puts @response.code
+  puts @response.body
   expect(@response.code).to eql(status_code_expected.to_i)
-  # puts @response.code
-  # puts @response.body
 end
 
 And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
@@ -24,6 +24,8 @@ Then(/^The response body is$/) do |expected_body|
 end
 
 When(/^I set the body as:$/) do |body|
+  p body.class
+  p body
   @body = body
   @request.body = body
 end
@@ -36,6 +38,7 @@ end
 
 When(/^I save the id$/) do
   $id = JSON.parse(@response.body)['id']
+  p $id
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
@@ -80,4 +83,25 @@ end
 
 Then(/^I build the error response with$/) do |json|
   @builded_hash = ResponseManager.build_error_response('error', json, @response.body)
+end
+
+Given(/^I create a Channel with the body as:$/) do |body|
+  steps %{
+         Given I make a 'POST' request to '/channels' endpoint
+         When I set the body as:
+         """
+          #{body}
+         """
+         And I execute the request to the endpoint
+         Then I expect a '200' status code
+       }
+end
+
+
+Then(/^I delete the channel create$/) do |body|
+  enpoint ='/channels/$id'
+  enpoint.gsub('$id', $id.to_s)
+  request = ApiRequest.new(enpoint)
+  request.method = 'DELETE'
+  RequestManager.execute_request(request)
 end
