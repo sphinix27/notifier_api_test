@@ -1,17 +1,15 @@
 Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
   @request = ApiRequest.new(EnpointBuilder.builder(endpoint))
   @request.method = method
-  EnpointBuilder.builder(endpoint)
 end
 
 When(/^I execute the request to the endpoint$/) do
   @response = RequestManager.execute_request(@request)
+  # puts @response
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
   expect(@response.code).to eql(status_code_expected.to_i)
-  # puts @response.code
-  # puts @response.body
 end
 
 And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
@@ -29,13 +27,18 @@ When(/^I set the body as:$/) do |body|
 end
 
 When(/^I set the body with id:$/) do |body|
-  body = body.gsub('$id', $id.to_s)
+  puts $id_hash[$identifier_name]
+  body = body.gsub('$id', $id_hash[$identifier_name].to_s)
   @body = JSON.parse(body)
   @request.body = body
 end
 
-When(/^I save the id$/) do
-  $id = JSON.parse(@response.body)['id']
+When(/^I save the '(\w+)' of '(channels|notification|templates)'$/) do |name, type|
+  # $identifier_name = name
+  $identifier_name = "#{type}_#{name}"
+  $id_hash.store($identifier_name, JSON.parse(@response.body)[name])
+  puts $id_hash[$identifier_name]
+  p $id_hash
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
@@ -46,7 +49,7 @@ Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
   # expect(@builded_hash[0].keys).to contain_exactly("id", "name", "type", "configuration", "onFail")
   puts @builded_hash.to_json
-  puts @response.body
+  # puts @response.body
 end
 
 Then(/^I capture the response to the endpoint$/) do
@@ -59,10 +62,6 @@ end
 
 Then(/^I expect that the GET response it is empty$/) do
   expect(@response.body).to eq ''
-end
-
-Given(/^sleep$/) do
-  sleep 3
 end
 
 And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
@@ -78,6 +77,19 @@ And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.
   expect(value).to eq @result_expected
 end
 
-Then(/^I build the error response with$/) do |json|
-  @builded_hash = ResponseManager.build_error_response('error', json, @response.body)
+
+And(/^I make a '(GET|POST)' request to '(.+)' until that '(.+)' is '(.+)'$/) do |method, endpoint, params, value|
+  endpoint = EnpointBuilder.builder(endpoint)
+  $app_max_wait_time.times do
+    steps %{
+        And I make a '#{method}' request to '#{endpoint}' endpoint
+        And I execute the request to the endpoint
+     }
+    if @response.empty? && value == JSON.parse(@response.body)[params]
+      break
+    end
+    sleep 1
+  end
 end
+
+

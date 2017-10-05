@@ -6,7 +6,7 @@ Feature: POST request for notification endpoint
     When I set the body as:
     """
     {
-      "name": "AT04-Slack-Demo-for-Notifications",
+      "name": "AT04-Slack",
       "type": "SLACK",
       "configuration": {
         "url": "https://hooks.slack.com/services/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"
@@ -15,7 +15,7 @@ Feature: POST request for notification endpoint
     """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'channels'
 
   @delete_channel
   Scenario Outline: Send a new notification
@@ -43,5 +43,4 @@ Feature: POST request for notification endpoint
       | priority | recipients        | subject | content                          | status_code |
       | NORMAL   | "#general","main" | Test1   | A testing message from notifier1 | 200         |
       | NORMAL   | "#general"        | Test2   | A testing message from notifier2 | 200         |
-
 

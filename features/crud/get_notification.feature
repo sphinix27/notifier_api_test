@@ -15,7 +15,7 @@ Feature: GET request for notification endpoint
           """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'notification'
 
   Scenario: Get notification by id
     Given I make a 'GET' request to '/notifications/$id' endpoint
