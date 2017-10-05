@@ -24,15 +24,13 @@ Then(/^The response body is$/) do |expected_body|
 end
 
 When(/^I set the body as:$/) do |body|
-  p body.class
-  p body
   @body = body
   @request.body = body
 end
 
 When(/^I set the body with id:$/) do |body|
   body = body.gsub('$id', $id.to_s)
-  @body = JSON.parse(body)
+  @body = body
   @request.body = body
 end
 
