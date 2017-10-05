@@ -1,10 +1,12 @@
 Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
   @request = ApiRequest.new(EnpointBuilder.builder(endpoint))
   @request.method = method
+  puts EnpointBuilder.builder(endpoint)
 end
 
 When(/^I execute the request to the endpoint$/) do
   @response = RequestManager.execute_request(@request)
+  # puts @response
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
@@ -25,9 +27,9 @@ When(/^I set the body as:$/) do |body|
   @request.body = body
 end
 
-When(/^I save the '(id)'$/) do |identify|
-  $id_hash.store(identify, JSON.parse(@response.body)[identify])
-  $identifier_name = identify
+When(/^I save the '(\w+)'$/) do |name|
+  $id_hash.store(name, JSON.parse(@response.body)[name])
+  $identifier_name = name
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
@@ -41,7 +43,7 @@ end
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
   puts @builded_hash.to_json
-  puts @response.body
+  # puts @response.body
 end
 
 Then(/^I capture the response to the endpoint$/) do
@@ -60,20 +62,33 @@ Given(/^sleep$/) do
   sleep 3
 end
 
-And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
-  time = 0
-  result_expected = JSON.parse(@response.body)[field][params]
-  until result_expected == value
-    sleep 1
-    time += 1
+And(/^I make a '(GET|POST)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
+  endpoint = EnpointBuilder.builder(endpoint)
+  puts $app_max_wait_time
+  $app_max_wait_time.times do
     steps %{
         And I make a '#{method}' request to '#{endpoint}' endpoint
         And I execute the request to the endpoint
      }
-    result_expected = JSON.parse(@response.body)[field][params]
-    if time <= $maxWaitTime.to_i
+    puts @response.empty?
+    sleep 1
+  end
+  value == JSON.parse(@response.body)[field][params]
+end
+
+
+And(/^I make a '(GET|POST)' request to '(.+)' until that '(.+)' is '(.+)'$/) do |method, endpoint, params, value|
+  endpoint = EnpointBuilder.builder(endpoint)
+  $app_max_wait_time.times do
+    steps %{
+        And I make a '#{method}' request to '#{endpoint}' endpoint
+        And I execute the request to the endpoint
+     }
+    if !@response.empty? && value == JSON.parse(@response.body)[params]
       break
     end
+    sleep 1
   end
-  expect(value).to eq result_expected
 end
+
+

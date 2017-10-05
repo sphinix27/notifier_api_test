@@ -16,15 +16,13 @@ Feature: CRUD resend notification
     Then I expect a '200' status code
     And I save the 'id'
 
-
   Scenario: resend a notification without param
-    And I make a 'POST' request to '/notifications/events/$id/resend' endpoint
-    When I execute the request to the endpoint
+   Given I make a 'POST' request to '/notifications/events/$id/resend' until that 'status' is 'RE_SEND'
     Then I expect a '200' status code
 
 
-  Scenario: resend a notification with param
-    Given I make a 'POST' request to '/notifications/events/$id/resend' with:
-      | recipient | #general |
-    When I execute the request to the endpoint
-    Then I expect a '200' status code
+#  Scenario: resend a notification with param
+#    Given I make a 'POST' request to '/notifications/events/$id/resend' with:
+#      | recipient | #general |
+#    When I execute the request to the endpoint
+#    Then I expect a '200' status code
