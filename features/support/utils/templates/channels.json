@@ -1,0 +1,10 @@
+[
+    {
+        "id": "integer",
+        "name": "string",
+        "type": "string",
+        "configuration": {
+        },
+        "onFail": "boolean"
+    }
+]

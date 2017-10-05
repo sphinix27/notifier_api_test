@@ -1,27 +1,29 @@
-@crud
-Feature: CRUD for channels
+@functional
+Feature: Functional get for channels with params type for EMAIL
 
   Background:
     Given I make a 'POST' request to '/channels' endpoint
     When I set the body as:
     """
     {
-      "name": "AT04-Slack-Demo",
-      "type": "SLACK",
+      "name": "AT04-Email-Demo",
+      "type": "EMAIL",
       "configuration": {
-        "url": "https://hooks.slack.com/services/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"
+        "mail.from": "example@example.com",
+        "mail.host": "40.97.162.130"
       }
     }
     """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the 'id' of 'channels'
+    And I save the id
   @delete_channel
-  Scenario: Get channel by id
-    Given I make a 'GET' request to '/channels/$id' endpoint
+  Scenario: Get channel of type EMAIL
+    Given I make a 'GET' request to '/channels' with:
+    | type | EMAIL |
     When I execute the request to the endpoint
     Then I expect a '200' status code
-    And I build the response for "channel" with
+    And I build the response for "channels" with
     """
       {
         "onFail": null

@@ -1,5 +1,5 @@
-@crud
-Feature: CRUD for channels
+@functional
+Feature: Functional get for channels with params type for SLACK
 
   Background:
     Given I make a 'POST' request to '/channels' endpoint
@@ -9,19 +9,20 @@ Feature: CRUD for channels
       "name": "AT04-Slack-Demo",
       "type": "SLACK",
       "configuration": {
-        "url": "https://hooks.slack.com/services/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"
+        "url": "https://hooks.slack.com/services/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"
       }
     }
     """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the 'id' of 'channels'
+    And I save the id
   @delete_channel
-  Scenario: Get channel by id
-    Given I make a 'GET' request to '/channels/$id' endpoint
+  Scenario: Get channel of type SLACK
+    Given I make a 'GET' request to '/channels' with:
+    | type | SLACK |
     When I execute the request to the endpoint
     Then I expect a '200' status code
-    And I build the response for "channel" with
+    And I build the response for "channels" with
     """
       {
         "onFail": null
