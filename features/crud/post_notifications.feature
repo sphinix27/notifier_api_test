@@ -5,7 +5,7 @@ Feature: POST request for notification endpoint
     Given I create a Channel with the body as:
     """
     {
-      "name": "AT04-Slack-Demo-for-Notifications89assasas88",
+      "name": "AT04-Slack-Demo-for-Notifications",
       "type": "SLACK",
       "configuration": {
         "url": "https://hooks.slack.com/services/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"

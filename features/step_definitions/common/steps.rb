@@ -5,12 +5,9 @@ end
 
 When(/^I execute the request to the endpoint$/) do
   @response = RequestManager.execute_request(@request)
-  # puts @response
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
-  puts @response.code
-  puts @response.body
   expect(@response.code).to eql(status_code_expected.to_i)
 end
 
@@ -29,7 +26,6 @@ When(/^I set the body as:$/) do |body|
 end
 
 When(/^I set the body with id:$/) do |body|
-  puts $id_hash[$identifier_name]
   body = body.gsub('$id', $id_hash[$identifier_name].to_s)
   @body = body
   @request.body = body
@@ -39,8 +35,6 @@ When(/^I save the '(\w+)' of '(channels|notification|templates)'$/) do |name, ty
   # $identifier_name = name
   $identifier_name = "#{type}_#{name}"
   $id_hash.store($identifier_name, JSON.parse(@response.body)[name])
-  puts $id_hash[$identifier_name]
-  p $id_hash
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
@@ -49,9 +43,6 @@ end
 
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
-  # expect(@builded_hash[0].keys).to contain_exactly("id", "name", "type", "configuration", "onFail")
-  puts @builded_hash.to_json
-  # puts @response.body
 end
 
 Then(/^I capture the response to the endpoint$/) do
@@ -66,21 +57,21 @@ Then(/^I expect that the GET response it is empty$/) do
   expect(@response.body).to eq ''
 end
 
-And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
+And(/^I make a '(GET)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
   $app_max_wait_time.times do
-    @result_expected = JSON.parse(@response.body)[field][params]
-    break if @result_expected == value
     sleep 1
     steps %{
         And I make a '#{method}' request to '#{endpoint}' endpoint
         And I execute the request to the endpoint
      }
+    @result_expected = JSON.parse(@response.body)[field][params]
+    break if @result_expected == value
   end
   expect(value).to eq @result_expected
 end
 
 
-And(/^I make a '(GET|POST)' request to '(.+)' until that '(.+)' is '(.+)'$/) do |method, endpoint, params, value|
+And(/^I make a '(GET)' request to '(.+)' until that '(.+)' is '(.+)'$/) do |method, endpoint, params, value|
   endpoint = EnpointBuilder.builder(endpoint)
   $app_max_wait_time.times do
     steps %{
