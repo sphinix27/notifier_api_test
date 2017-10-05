@@ -3,7 +3,7 @@
   "channelId": "integer",
   "priority": "string",
   "status": "string",
-  "recipients": ["string"],
+  "recipients": [],
   "attachments": "boolean",
   "content": "string",
   "templateId": "boolean"

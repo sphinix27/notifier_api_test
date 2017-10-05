@@ -2,8 +2,7 @@
 Feature: POST request for notification endpoint
 
   Background:
-    Given I make a 'POST' request to '/channels' endpoint
-    When I set the body as:
+    Given I create a Channel with the body as:
     """
     {
       "name": "AT04-Slack-Demo-for-Notifications",
@@ -13,9 +12,7 @@ Feature: POST request for notification endpoint
       }
     }
     """
-    And I execute the request to the endpoint
-    Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'channels'
 
   @delete_channel
   Scenario Outline: Send a new notification
@@ -42,6 +39,4 @@ Feature: POST request for notification endpoint
     Examples:
       | priority | recipients        | subject | content                          | status_code |
       | NORMAL   | "#general","main" | Test1   | A testing message from notifier1 | 200         |
-      | NORMAL   | "#general"        | Test2   | A testing message from notifier2 | 200         |
-
 

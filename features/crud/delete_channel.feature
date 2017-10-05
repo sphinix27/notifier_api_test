@@ -15,7 +15,7 @@ Feature: CRUD for channels
     """
     And I execute the request to the endpoint
     Then I expect a '200' status code
-    And I save the id
+    And I save the 'id' of 'channels'
   Scenario: Delete channel by id
     Given I make a 'DELETE' request to '/channels/$id' endpoint
     When I execute the request to the endpoint

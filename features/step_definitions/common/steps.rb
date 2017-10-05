@@ -29,13 +29,15 @@ When(/^I set the body as:$/) do |body|
 end
 
 When(/^I set the body with id:$/) do |body|
-  body = body.gsub('$id', $id.to_s)
-  @body = JSON.parse(body)
+  body = body.gsub('$id', $id_hash[$identifier_name].to_s)
+  @body = body
   @request.body = body
 end
 
-When(/^I save the id$/) do
-  $id = JSON.parse(@response.body)['id']
+When(/^I save the '(\w+)' of '(channels|notification|templates)'$/) do |name, type|
+  # $identifier_name = name
+  $identifier_name = "#{type}_#{name}"
+  $id_hash.store($identifier_name, JSON.parse(@response.body)[name])
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
@@ -61,25 +63,43 @@ Then(/^I expect that the GET response it is empty$/) do
   expect(@response.body).to eq ''
 end
 
-Given(/^sleep$/) do
-  sleep 3
-end
-
-And(/^I make a '(\w+)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
+And(/^I make a '(GET)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.+)'$/) do |method, endpoint, field, params, value|
   $app_max_wait_time.times do
-    @result_expected = JSON.parse(@response.body)[field][params]
-    break if @result_expected == value
     sleep 1
     steps %{
         And I make a '#{method}' request to '#{endpoint}' endpoint
         And I execute the request to the endpoint
      }
+    @result_expected = JSON.parse(@response.body)[field][params]
+    break if @result_expected == value
   end
   expect(value).to eq @result_expected
 end
 
-Then(/^I build the error response with$/) do |json|
-  @builded_hash = ResponseManager.build_error_response('error', json, @response.body)
+And(/^I make a '(GET)' request to '(.+)' until that '(.+)' is '(.+)'$/) do |method, endpoint, params, value|
+  endpoint = EnpointBuilder.builder(endpoint)
+  $app_max_wait_time.times do
+    steps %{
+        And I make a '#{method}' request to '#{endpoint}' endpoint
+        And I execute the request to the endpoint
+     }
+    if @response.empty? && value == JSON.parse(@response.body)[params]
+      break
+    end
+    sleep 1
+  end
+end
+
+Given(/^I create a Channel with the body as:$/) do |body|
+  steps %{
+         Given I make a 'POST' request to '/channels' endpoint
+         When I set the body as:
+         """
+          #{body}
+         """
+         And I execute the request to the endpoint
+         Then I expect a '200' status code
+       }
 end
 
 Then(/^the response body contains:$/) do |json|
@@ -87,6 +107,7 @@ Then(/^the response body contains:$/) do |json|
   puts @response.body
   puts json
 end
+
 Then(/^the response body contains excluding '([^"]*)':$/) do |exclude, json|
   expect(json).to be_json_eql(@response.body).excluding(exclude)
   puts @response.body

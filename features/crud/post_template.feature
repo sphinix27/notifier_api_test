@@ -11,7 +11,7 @@ Feature: template
     """
     When I execute the request to the endpoint
     Then I expect a '201' status code
-    And I save the id
+    And I save the 'id' of 'templates'
     And I capture the response to the endpoint
     Given I make a 'GET' request to '/templates/$id' endpoint
     And I execute the request to the endpoint

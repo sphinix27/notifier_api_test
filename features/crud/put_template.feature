@@ -12,7 +12,7 @@ Feature: template
     """
     When I execute the request to the endpoint
     Then I expect a '201' status code
-    And I save the id
+    And I save the 'id' of 'templates'
 
   Scenario: create a new template
     Given I make a 'PUT' request to '/templates/$id' endpoint
