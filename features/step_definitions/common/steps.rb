@@ -44,6 +44,8 @@ end
 
 Then(/^The response body is the same as builded$/) do
   expect(@builded_hash.to_json).to eq @response.body
+  puts @builded_hash.to_json
+  puts @response.body
 end
 
 Then(/^I capture the response to the endpoint$/) do
@@ -52,6 +54,7 @@ end
 
 Then(/^I expect (?:PUT|POST) response is the same as GET response$/) do
   expect(JSON.parse(@response.body)).to eq JSON.parse(@stored_response)
+  expect(@response.body).to eq @stored_response
 end
 
 Then(/^I expect that the GET response it is empty$/) do
@@ -70,7 +73,6 @@ And(/^I make a '(GET)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.
   end
   expect(value).to eq @result_expected
 end
-
 
 And(/^I make a '(GET)' request to '(.+)' until that '(.+)' is '(.+)'$/) do |method, endpoint, params, value|
   endpoint = EnpointBuilder.builder(endpoint)
@@ -96,4 +98,10 @@ Given(/^I create a Channel with the body as:$/) do |body|
          And I execute the request to the endpoint
          Then I expect a '200' status code
        }
+end
+
+Then(/^the response body contains excluding '([^"]*)':$/) do |exclude, json|
+  expect(json).to be_json_eql(@response.body).excluding(exclude)
+  puts @response.body
+  puts json
 end
