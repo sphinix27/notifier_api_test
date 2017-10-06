@@ -8,8 +8,8 @@ end
 
 # Delete templates
 After('@delete_templates') do
-  enpoint = "/templates/#{$id_hash['templates_id'].to_s}"
-  request = ApiRequest.new(enpoint)
+  endpoint = "/templates/#{$id_hash['templates_id']}"
+  request = ApiRequest.new(endpoint)
   request.method = 'DELETE'
   RequestManager.execute_request(request)
 end
