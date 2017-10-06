@@ -1,7 +1,7 @@
 @functional
 Feature: Negative responses after making a post request
   Background:
-    Given I create a Channel with the body as:
+    Given I create a 'channel' with status code '200' and body as:
     """
     {
       "name": "AT04_Old_Name",
