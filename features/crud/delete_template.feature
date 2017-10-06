@@ -1,3 +1,4 @@
+@crud
 Feature: delete template
 
   Background:
