@@ -9,7 +9,6 @@ end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
   expect(@response.code).to eql(status_code_expected.to_i)
-  p @request.body
 end
 
 And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
