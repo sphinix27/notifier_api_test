@@ -96,7 +96,7 @@ Feature: Negative request get channels with invalid type
     When I execute the request to the endpoint
     Then I expect a '404' status code
     And I expect that the GET response it is empty
-    And the response body contains excluding 'timestamp':
+    And the response body contains excluding '':
     """
     """
     Examples:
