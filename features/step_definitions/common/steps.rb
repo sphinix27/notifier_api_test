@@ -73,29 +73,15 @@ And(/^I make a '(GET)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.
   expect(value).to eq @result_expected
 end
 
-And(/^I make a '(GET)' request to '(.+)' until that '(.+)' is '(.+)'$/) do |method, endpoint, params, value|
-  endpoint = EnpointBuilder.builder(endpoint)
-  $app_max_wait_time.times do
-    steps %{
-        And I make a '#{method}' request to '#{endpoint}' endpoint
-        And I execute the request to the endpoint
-     }
-    if @response.empty? && value == JSON.parse(@response.body)[params]
-      break
-    end
-    sleep 1
-  end
-end
-
-Given(/^I create a Channel with the body as:$/) do |body|
+Given(/^I create a '(channel|template)' with status code '(\d+)' and body as:$/) do |type, status, body|
   steps %{
-         Given I make a 'POST' request to '/channels' endpoint
+         Given I make a 'POST' request to '/#{type}s' endpoint
          When I set the body as:
          """
           #{body}
          """
          And I execute the request to the endpoint
-         Then I expect a '200' status code
+         Then I expect a '#{status}' status code
        }
 end
 
