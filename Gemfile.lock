@@ -81,6 +81,7 @@ DEPENDENCIES
   json
   json_spec
   pg
+  rake
   report_builder
   rest-client
   rspec
