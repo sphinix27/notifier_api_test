@@ -52,8 +52,9 @@ Then(/^I capture the response to the endpoint$/) do
 end
 
 Then(/^I expect (?:PUT|POST) response is the same as GET response$/) do
-  expect(JSON.parse(@response.body)).to eq JSON.parse(@stored_response)
   expect(@response.body).to eq @stored_response
+  puts @response.body
+  puts @stored_response
 end
 
 Then(/^I expect that the GET response it is empty$/) do
@@ -101,6 +102,12 @@ end
 
 Then(/^the response body contains excluding '([^"]*)':$/) do |exclude, json|
   expect(json).to be_json_eql(@response.body).excluding(exclude)
-  puts @response.body
   puts json
+  puts @response.body
+end
+
+Then(/^excluding '([^"]*)' and '(.*)' the response body contains:$/) do |exclude1, exclude2, json|
+  expect(json).to be_json_eql(@response.body).excluding(exclude1, exclude2)
+  puts json
+  puts @response.body
 end
