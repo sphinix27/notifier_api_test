@@ -1,3 +1,4 @@
+@crud
 Feature: template
 
   Scenario: create a new template

@@ -1,3 +1,4 @@
+@crud
 Feature: template
 
   Background:

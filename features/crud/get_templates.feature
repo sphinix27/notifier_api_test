@@ -1,3 +1,4 @@
+@crud
 Feature: get templates
 
   Scenario: Get all templates
