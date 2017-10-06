@@ -1,7 +1,7 @@
 Feature: Negative responses after making a post request
 
-  Background:
-    Given I create a Channel with the body as:
+  Background: Create a Channel
+    Given I create a 'channel' with status code '200' and body as:
     """
     {
       "name": "AT04-Slack-Demo-for-Notifications",
@@ -14,9 +14,9 @@ Feature: Negative responses after making a post request
     And I save the 'id' of 'channels'
 
   @delete_channel
-  Scenario Outline: Send a new notification without the channel id parameter
+  Scenario Outline: Send a new notification without the "id channel" parameter
     Given I make a 'POST' request to '/notifications' endpoint
-    When I set the body with id:
+    When I set the body as:
     """
          {
           "priority": "<priority>",
@@ -49,7 +49,7 @@ Feature: Negative responses after making a post request
       | NORMAL   | "#general","main" | Test1   | A testing message from notifier |
 
   @delete_channel
-  Scenario Outline: Send a new notification without the recipients parameter
+  Scenario Outline: Send a new notification without the "recipients" parameter
     Given I make a 'POST' request to '/notifications' endpoint
     When I set the body with id:
     """
@@ -89,7 +89,7 @@ Feature: Negative responses after making a post request
       | NORMAL   | Test1   | A testing message from notifier |
 
   @delete_channel
-  Scenario Outline: Send a new notification with the empty recipients parameter
+  Scenario Outline: Send a new notification with the "empty recipients" parameter
     Given I make a 'POST' request to '/notifications' endpoint
     When I set the body with id:
     """
@@ -123,3 +123,4 @@ Feature: Negative responses after making a post request
     Examples:
       | priority | recipients | subject | content                         |
       | NORMAL   | ""         | Test1   | A testing message from notifier |
+

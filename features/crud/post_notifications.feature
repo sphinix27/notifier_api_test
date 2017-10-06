@@ -2,7 +2,7 @@
 Feature: POST request for notification endpoint
 
   Background: Create a Channel
-    Given I create a Channel with the body as:
+    Given I create a 'channel' with status code '200' and body as:
     """
     {
       "name": "AT04-Slack-Demo-for-Notifications",

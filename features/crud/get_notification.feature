@@ -2,7 +2,7 @@
 Feature: GET request for notification endpoint
 
   Background: Send a notification
-    Given I create a Channel with the body as:
+    Given I create a 'channel' with status code '200' and body as:
     """
     {
       "name": "AT04-Slack-Demo-for-Notifications",

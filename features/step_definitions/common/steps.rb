@@ -9,6 +9,7 @@ end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
   expect(@response.code).to eql(status_code_expected.to_i)
+  p @request.body
 end
 
 And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
@@ -73,15 +74,15 @@ And(/^I make a '(GET)' request to '(.+)' until the field '(.+)' at '(.+)' is '(.
   expect(value).to eq @result_expected
 end
 
-Given(/^I create a Channel with the body as:$/) do |body|
+Given(/^I create a '(channel|template)' with status code '(\d+)' and body as:$/) do |type, status, body|
   steps %{
-         Given I make a 'POST' request to '/channels' endpoint
+         Given I make a 'POST' request to '/#{type}s' endpoint
          When I set the body as:
          """
           #{body}
          """
          And I execute the request to the endpoint
-         Then I expect a '200' status code
+         Then I expect a '#{status}' status code
        }
 end
 
