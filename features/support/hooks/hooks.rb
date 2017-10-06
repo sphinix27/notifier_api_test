@@ -1,7 +1,7 @@
 # Delete channel
 After('@delete_channel') do
-  enpoint = "/channels/#{$id_hash['channels_id'].to_s}"
-  request = ApiRequest.new(enpoint)
+  endpoint = "/channels/#{$id_hash['channels_id']}"
+  request = ApiRequest.new(endpoint)
   request.method = 'DELETE'
   RequestManager.execute_request(request)
 end

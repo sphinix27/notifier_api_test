@@ -1,8 +1,8 @@
 @crud
 Feature: POST request for notification endpoint
 
-  Background:
-    Given I create a Channel with the body as:
+  Background: Create a Channel
+    Given I create a 'channel' with status code '200' and body as:
     """
     {
       "name": "AT04-Slack-Demo-for-Notifications",
@@ -38,5 +38,6 @@ Feature: POST request for notification endpoint
     """
     Examples:
       | priority | recipients        | subject | content                          | status_code |
-      | NORMAL   | "#general","main" | Test1   | A testing message from notifier1 | 200         |
+      | NORMAL   | "#general"        | Test1   | A testing message from notifier1 | 200         |
+      | NORMAL   | "#general","main" | Test2   | A testing message from notifier2 | 200         |
 
