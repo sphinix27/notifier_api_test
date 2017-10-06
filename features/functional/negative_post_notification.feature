@@ -88,39 +88,3 @@ Feature: Negative responses after making a post request
       | priority | subject | content                         |
       | NORMAL   | Test1   | A testing message from notifier |
 
-  @delete_channel
-  Scenario Outline: Send a new notification with the "empty recipients" parameter
-    Given I make a 'POST' request to '/notifications' endpoint
-    When I set the body with id:
-    """
-         {
-          "channelId": $id,
-          "recipients": [<recipients>],
-          "priority": "<priority>",
-          "subject": "<subject>",
-          "content": "<content>"
-          }
-          """
-    And I execute the request to the endpoint
-    Then I expect a '400' status code
-    And the response body contains excluding 'timestamp':
-    """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "exception": "org.springframework.web.bind.MethodArgumentNotValidException",
-        "errors": [
-          {
-            "field": "recipients",
-            "code": "recipients.valid",
-            "defaultMessage": null
-          }
-         ],
-        "message": "Bad Request",
-        "path": "/notifications"
-      }
-    """
-    Examples:
-      | priority | recipients | subject | content                         |
-      | NORMAL   | ""         | Test1   | A testing message from notifier |
-
