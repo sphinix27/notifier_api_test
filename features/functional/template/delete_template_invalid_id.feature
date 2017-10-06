@@ -15,17 +15,16 @@ Feature: Functional get for templates with ID
 
   @delete_templates
   Scenario Outline: Send a new template
-    Given I make a 'GET' request to '/templates/<id>' endpoint
+    Given I make a 'DELETE' request to '/templates/<id>' endpoint
     When I execute the request to the endpoint
     Then I expect a '<status_code>' status code
 
     Examples:
-      | id     | status_code | description                    |
-      | DIKJAS   | 400         | Send an invalid id (letters)            |
+      | id       | status_code | description                             |
+      | DIKE@$#  | 400         | Send an invalid id (letters)            |
       | asd13asd | 400         | Send an invalid id (letters and number) |
       | 1        | 404         | Send a non-exist id                     |
-      |          | 200         | Send an empty id                        |
+      |          | 405         | Send an empty id                        |
       | -3       | 404         | Send an id less or equals to 0          |
       | 000$id   | 200         | Send an id with zeros by front          |
       | 0        | 404         | Send an id 0                            |
-
