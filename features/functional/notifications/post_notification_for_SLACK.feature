@@ -28,14 +28,6 @@ Feature: Functional post for Notification for SLACK
     And I execute the request to the endpoint
     Then I expect a '<status_code>' status code
     And I save the 'id' of 'notification'
-    And I build the response for "notification" with
-   """
-      {
-        "subject": null,
-        "attachments": null,
-        "templateId": null
-      }
-    """
     Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
     Examples:
       | recipients | content                           | status_code |
@@ -57,16 +49,54 @@ Feature: Functional post for Notification for SLACK
     And I execute the request to the endpoint
     Then I expect a '<status_code>' status code
     And I save the 'id' of 'notification'
-    And I build the response for "notification" with
-   """
-      {
-        "attachments": null,
-        "templateId": null
-      }
-    """
     Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
     Examples:
       | priority | recipients | subject | content                           | status_code |
       | HIGH     | #general   | Test1   | A testing message from notifier 1 | 200         |
       | NORMAL   | #main      | Test2   | A testing message from notifier 2 | 200         |
 
+  @delete_channel
+  Scenario Outline: Send notification with different types of channel Id data
+    Given I make a 'POST' request to '/notifications' endpoint
+    When I set the body with id:
+    """
+         {
+          "channelId": <channel_id>,
+          "recipients": ["<recipients>"],
+          "content": "<content>"
+          }
+          """
+    And I execute the request to the endpoint
+    Then I expect a '200' status code
+    And I save the 'id' of 'notification'
+    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
+    Examples:
+      | channel_id | recipients | content                           |
+      | "$id"      | #general   | A testing message from notifier 1 |
+      | $id.5      | #general   | A testing message from notifier 2 |
+      | $id.435    | #general   | A testing message from notifier 3 |
+      | $id.645    | #general   | A testing message from notifier 4 |
+      | $id.999    | #general   | A testing message from notifier 5 |
+
+  @delete_channel
+  Scenario Outline: Sending notification to multiple recipients
+    Given I make a 'POST' request to '/notifications' endpoint
+    When I set the body with id:
+    """
+         {
+          "channelId": $id,
+          "recipients": [<recipients>],
+          "content": "<content>"
+          }
+          """
+    And I execute the request to the endpoint
+    Then I expect a '200' status code
+    And I save the 'id' of 'notification'
+    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
+    Examples:
+      | recipients                                                                                | content                           |
+      | "#recipient_one"                                                                          | A testing message from notifier 1 |
+      | "#recipient_one" ,"#recipient_two"                                                        | A testing message from notifier 2 |
+      | "#recipient_one" ,"#recipient_two","#recipient_three"                                     | A testing message from notifier 3 |
+      | "#recipient_one" ,"#recipient_two","#recipient_three","#recipient_four"                   | A testing message from notifier 4 |
+      | "#recipient_one" ,"#recipient_two","#recipient_three","#recipient_four","#recipient_five" | A testing message from notifier 5 |
