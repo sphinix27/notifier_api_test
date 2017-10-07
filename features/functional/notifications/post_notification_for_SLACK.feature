@@ -15,7 +15,34 @@ Feature: Functional post for Notification for SLACK
     And I save the 'id' of 'channels'
 
   @delete_channel
-  Scenario Outline: Send a new notification with the two different priorities
+  Scenario Outline: Send notification only with the necessary parameters
+    Given I make a 'POST' request to '/notifications' endpoint
+    When I set the body with id:
+    """
+         {
+          "channelId": $id,
+          "recipients": ["<recipients>"],
+          "content": "<content>"
+          }
+          """
+    And I execute the request to the endpoint
+    Then I expect a '<status_code>' status code
+    And I save the 'id' of 'notification'
+    And I build the response for "notification" with
+   """
+      {
+        "subject": null,
+        "attachments": null,
+        "templateId": null
+      }
+    """
+    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
+    Examples:
+      | recipients | content                           | status_code |
+      | #general   | A testing message from notifier 1 | 200         |
+
+  @delete_channel
+  Scenario Outline: Send notification with the two predetermined priorities
     Given I make a 'POST' request to '/notifications' endpoint
     When I set the body with id:
     """
@@ -43,30 +70,3 @@ Feature: Functional post for Notification for SLACK
       | HIGH     | #general   | Test1   | A testing message from notifier 1 | 200         |
       | NORMAL   | #main      | Test2   | A testing message from notifier 2 | 200         |
 
-  @delete_channel
-  Scenario Outline: Send a new notification without subject
-    Given I make a 'POST' request to '/notifications' endpoint
-    When I set the body with id:
-    """
-         {
-          "channelId": $id,
-          "priority": "<priority>",
-          "recipients": ["<recipients>"],
-          "content": "<content>"
-          }
-          """
-    And I execute the request to the endpoint
-    Then I expect a '<status_code>' status code
-    And I save the 'id' of 'notification'
-    And I build the response for "notification" with
-   """
-      {
-        "attachments": null,
-        "templateId": null
-      }
-    """
-    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
-    Examples:
-      | priority | recipients | content                           | status_code |
-      | HIGH     | #general   | A testing message from notifier 1 | 200         |
-      | NORMAL   | #main      | A testing message from notifier 2 | 200         |
