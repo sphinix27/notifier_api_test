@@ -1,4 +1,4 @@
-@functional
+@all @functional
 Feature: Puts request for channels endpoint
 
   Background:

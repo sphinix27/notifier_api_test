@@ -1,21 +1,8 @@
-@functional
-Feature: Negative responses after making a put request
-  Background:
-    Given I create a 'channel' with status code '200' and body as:
-    """
-    {
-      "name": "AT04_Old_Name",
-      "type": "SLACK",
-      "configuration": {
-        "url": "https://example.com"
-      },
-      "onFail": "https://fail.com"
-    }
-    """
-    And I save the 'id' of 'channels'
+@all @functional
+Feature: Negativo responses after making a post request
   @delete_channel
-  Scenario Outline: Update a existent channel to Twitter with invalid params
-    Given I make a 'PUT' request to '/channels/$id' endpoint
+  Scenario Outline: Create a new channel for Twitter with invalid params
+    Given I make a 'POST' request to '/channels' endpoint
     And I set the body as:
     """
     {
@@ -31,7 +18,8 @@ Feature: Negative responses after making a put request
     """
     When I execute the request to the endpoint
     Then I expect a '400' status code
-    And excluding 'timestamp' and 'path' the response body contains:
+    And I save the 'id' of 'channels'
+    And the response body contains excluding 'timestamp':
     """
       {
         "status": 400,

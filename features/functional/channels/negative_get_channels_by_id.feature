@@ -1,4 +1,4 @@
-@functional
+@all @functional
 Feature: Negative responses after making a get request by id
 
   Scenario Outline: Can't find a channel by id with invalid params

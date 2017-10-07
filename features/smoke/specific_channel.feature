@@ -1,4 +1,4 @@
-@smoke
+@smoke @all
 Feature: Specific Channels
 
   Background: Create a Channel

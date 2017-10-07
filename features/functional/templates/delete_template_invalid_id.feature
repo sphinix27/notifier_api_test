@@ -1,5 +1,5 @@
-Feature: Functional post for templates with ID
-
+@all @functional
+Feature: Functional get for templates with ID
 
   Background: create a new template
     Given I make a 'POST' request to '/templates' endpoint
@@ -16,20 +16,13 @@ Feature: Functional post for templates with ID
 
   @delete_templates
   Scenario Outline: Send a new template
-    Given I make a 'PUT' request to '/templates/<id>' endpoint
-    When I set the body as:
-    """
-   {
-       "name": "new Template",
-       "contentTemplate": "This should be at least 20 chars"
-     }
-    """
+    Given I make a 'DELETE' request to '/templates/<id>' endpoint
     When I execute the request to the endpoint
     Then I expect a '<status_code>' status code
 
     Examples:
       | id       | status_code | description                             |
-      | DIKJAS   | 400         | Send an invalid id (letters)            |
+      | DIKE@$#  | 400         | Send an invalid id (letters)            |
       | asd13asd | 400         | Send an invalid id (letters and number) |
       | 1        | 404         | Send a non-exist id                     |
       |          | 405         | Send an empty id                        |

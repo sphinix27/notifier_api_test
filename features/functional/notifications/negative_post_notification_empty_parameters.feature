@@ -1,3 +1,4 @@
+@all @functional
 Feature: Negative responses after making a post request with empty parameters.
 
   Background: Create a Channel

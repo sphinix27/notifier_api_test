@@ -1,3 +1,4 @@
+@functional @all
 Feature: Functional get for templates with ID
 
   Background: create a new template
