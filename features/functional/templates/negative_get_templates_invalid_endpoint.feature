@@ -14,7 +14,7 @@ Feature: get templates with invalid endpoint
     Then I expect a '201' status code
     And I save the 'id' of 'templates'
 
-
+  @delete_templates
   Scenario Outline: Can't find a template with invalid endpoint
     Given I make a 'GET' request to '/<Endpoint>/$id' endpoint
     When I execute the request to the endpoint
