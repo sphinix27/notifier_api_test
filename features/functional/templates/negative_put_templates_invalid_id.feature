@@ -1,12 +1,11 @@
 @functional @all
 Feature: Functional post for templates with ID
 
-
   Background: create a new template
     Given I make a 'POST' request to '/templates' endpoint
     When I set the body as:
     """
-   {
+     {
        "name": "Template for update",
        "contentTemplate": "This should be at least 20 chars"
      }
@@ -14,13 +13,21 @@ Feature: Functional post for templates with ID
     When I execute the request to the endpoint
     Then I expect a '201' status code
     And I save the 'id' of 'templates'
+    And I build the response for "template" with
+    """
+      {
+        "subjectTemplate": null,
+        "description": null
+      }
+    """
+    And The response body is the same as builded
 
   @delete_templates
   Scenario Outline: Send a new template
     Given I make a 'PUT' request to '/templates/<id>' endpoint
     When I set the body as:
     """
-   {
+     {
        "name": "new Template",
        "contentTemplate": "This should be at least 20 chars"
      }
@@ -35,5 +42,4 @@ Feature: Functional post for templates with ID
       | 1        | 404         | Send a non-exist id                     |
       |          | 405         | Send an empty id                        |
       | -3       | 404         | Send an id less or equals to 0          |
-      | 000$id   | 200         | Send an id with zeros by front          |
       | 0        | 404         | Send an id 0                            |
