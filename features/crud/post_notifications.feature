@@ -1,4 +1,4 @@
-@crud
+@all @crud
 Feature: POST request for notification endpoint
 
   Background: Create a Channel

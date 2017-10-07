@@ -1,4 +1,4 @@
-@crud
+@all @crud
 Feature: get specific template
 
   Background:

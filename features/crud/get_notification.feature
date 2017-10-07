@@ -1,4 +1,4 @@
-@crud
+@all @crud
 Feature: GET request for notification endpoint
 
   Background: Send a notification

@@ -1,4 +1,4 @@
-@crud
+@all @crud
 Feature: CRUD resend notification
 
   Background: send a notification

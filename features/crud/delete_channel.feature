@@ -1,4 +1,4 @@
-@crud
+@all @crud
 Feature: CRUD for channels
 
   Background:

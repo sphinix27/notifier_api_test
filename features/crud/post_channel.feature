@@ -1,4 +1,4 @@
-@crud
+@all @crud
 Feature: Post request for channels endpoint
   @delete_channel
   Scenario: Create a new channel
