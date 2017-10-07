@@ -1,3 +1,4 @@
+@functional @all
 Feature: Functional put for notification with several name param
 
   Background: create a new template

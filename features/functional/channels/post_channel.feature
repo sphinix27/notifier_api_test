@@ -1,4 +1,4 @@
-@functional
+@all @functional
 Feature: Post request for channels endpoint
   @delete_channel
   Scenario Outline: Create a new channel for WebHook, Email and Twitter

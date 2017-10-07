@@ -1,4 +1,4 @@
-@smoke
+@smoke @all
 Feature: Specific Template
 
   Background: Create a Template

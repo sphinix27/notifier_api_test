@@ -1,4 +1,4 @@
-@functional
+@all @functional
 Feature: Functional get for channels with params type for SLACK
 
   Background:

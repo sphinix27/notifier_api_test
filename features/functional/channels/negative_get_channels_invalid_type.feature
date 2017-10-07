@@ -1,4 +1,4 @@
-@functional
+@all @functional
 Feature: Negative request get channels with invalid type
 
   Background:

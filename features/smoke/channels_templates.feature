@@ -1,4 +1,4 @@
-@smoke
+@smoke @all
 Feature: Channels and Templates
 
   Scenario Outline: Get all
