@@ -13,6 +13,14 @@ Feature: Functional put for notification with several name param
     When I execute the request to the endpoint
     Then I expect a '201' status code
     And I save the 'id' of 'templates'
+    And I build the response for "template" with
+    """
+      {
+        "subjectTemplate": null,
+        "description": null
+      }
+    """
+    And The response body is the same as builded
 
   @delete_templates
   Scenario Outline: send several case for the param
@@ -55,7 +63,6 @@ Feature: Functional put for notification with several name param
         "subjectTemplate": "subject is valid for this case",
         "contentTemplate": "content is valid for this case",
         "description": "description is valid"
-
      }
     """
     When I execute the request to the endpoint
@@ -70,11 +77,17 @@ Feature: Functional put for notification with several name param
         "name": "test template",
         "contentTemplate": "content is valid for this case",
         "description": "description is valid"
-
      }
     """
     When I execute the request to the endpoint
     Then  I expect a '200' status code
+    And I build the response for "template" with
+    """
+      {
+        "subjectTemplate": null
+      }
+    """
+    And The response body is the same as builded
 
   @delete_templates
   Scenario: send without param content
@@ -85,7 +98,6 @@ Feature: Functional put for notification with several name param
         "name": "test template",
         "subjectTemplate": "subject is valid for this case",
         "description": "description is valid"
-
      }
     """
     When I execute the request to the endpoint
@@ -104,3 +116,10 @@ Feature: Functional put for notification with several name param
     """
     When I execute the request to the endpoint
     Then  I expect a '200' status code
+    And I build the response for "template" with
+    """
+      {
+        "description": null
+      }
+    """
+    And The response body is the same as builded

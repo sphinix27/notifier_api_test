@@ -5,7 +5,7 @@ Feature: Functional get for templates with ID
     Given I make a 'POST' request to '/templates' endpoint
     When I set the body as:
     """
-   {
+     {
        "name": "New Template",
        "contentTemplate": "This template has been created."
      }
@@ -34,7 +34,7 @@ Feature: Functional get for templates with ID
     Given I make a 'PUT' request to '/templates/$id' endpoint
     When I set the body as:
     """
-   {
+     {
        "name": "New Template",
        "contentTemplate": "This template has been created."
      }
