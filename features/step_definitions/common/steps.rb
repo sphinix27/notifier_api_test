@@ -1,10 +1,13 @@
 Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
   @request = ApiRequest.new(EnpointBuilder.builder(endpoint))
   @request.method = method
+  p EnpointBuilder.builder(endpoint)
 end
 
 When(/^I execute the request to the endpoint$/) do
   @response = RequestManager.execute_request(@request)
+  p @response
+  p @response.code
 end
 
 Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
@@ -38,6 +41,10 @@ When(/^I save the '(\w+)' of '(channels|notification|templates)'$/) do |name, ty
 end
 
 Then(/^I build the response for "([^"]*)" with$/) do |template, json|
+  p "Json Recuperado"
+  p @body
+  p "Json Response"
+  p @response.body
   @builded_hash = ResponseManager.build_response(template, @body, json, @response.body)
 end
 
