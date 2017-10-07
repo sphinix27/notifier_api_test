@@ -4,35 +4,33 @@ Feature: Negative responses after making a delete request by invalid id
   Scenario Outline: Can't delete a channel by id with invalid params
     Given I make a 'DELETE' request to '/channels/<Id>' endpoint
     When I execute the request to the endpoint
-    Then I expect a '400' status code
-    And the response body contains excluding 'timestamp':
+    Then I expect a '<status_code>' status code
+    And excluding 'timestamp' and 'message' the response body contains:
     """
       {
-    "timestamp": 1507390985776,
-    "status": 400,
-    "error": "Bad Request",
+    "status": <status_code>,
+    "error": "<error>",
     "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
-    "message": "Bad Request",
     "path": "/channels/<Id>"
 }
     """
     Examples:
-      | Id     |
-      | abc    |
-      | !@$    |
-      | SDDF   |
-      | 070./  |
-      | 4*]@!# |
-      | AMct   |
-      | 510@   |
-      | 510.   |
-      | 510.1  |
-      | 510.a  |
-      | 51#$   |
-      | 610.M  |
-      | .      |
-      | 1170   |
-      |        |
+      | Id     | status_code  | error                  |
+      | abc    |      400     |    Bad Request         |
+      | !@$    |      400     |    Bad Request         |
+      | SDDF   |      400     |    Bad Request         |
+      | 070./  |      400     |    Bad Request         |
+      | 4*]@!# |      400     |    Bad Request         |
+      | AMct   |      400     |    Bad Request         |
+      | 510@   |      400     |    Bad Request         |
+      | 510.   |      404     |    Not found           |
+      | 510.1  |      404     |    Not found           |
+      | 510.a  |      404     |    Not found           |
+      | 51#$   |      404     |    Not found           |
+      | 610.M  |      404     |    Not found           |
+      | .      |      400     |    Bad Request         |
+      | 1170   |      404     |    Not found           |
+      |        |      405     |    Method Not Allowed  |
 
 
 
