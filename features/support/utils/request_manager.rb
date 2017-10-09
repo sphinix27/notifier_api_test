@@ -11,10 +11,10 @@ module RequestManager
 
   def self.generator l,n
     cad = ""
-    n.times do
+    n.to_i.times do
       cad += l.to_s
     end
-    return cad
+     cad
   end
 end
 
