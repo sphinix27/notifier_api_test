@@ -16,11 +16,11 @@ Feature: Post Notification with invalid endpoint
 
   @delete_channel
   Scenario Outline: Can't post a notification with invalid endpoint
-    Given I make a 'POST' request to '<Endpoint>' endpoint
+    Given I make a 'POST' request to '/<Endpoint>' endpoint
     When I set the body with id:
     """
          {
-          "channelId": $id,
+          "channelId": $channels_id,
           "recipients": [<recipients>],
           "content": "<content>"
           }
