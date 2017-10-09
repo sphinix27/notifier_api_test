@@ -8,4 +8,13 @@ module RequestManager
   rescue RestClient::ExceptionWithResponse => error
     error.response
   end
+
+  def self.generator l,n
+    cad = ""
+    n.times do
+      cad += l.to_s
+    end
+    return cad
+  end
 end
+

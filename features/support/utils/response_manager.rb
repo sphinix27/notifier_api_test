@@ -30,8 +30,8 @@ module ResponseManager
   end
 
   def self.build_with_hash(request, expected, response)
-    replace_in_hash(request)
-    replace_in_hash(expected)
+    puts replace_in_hash(request)
+    puts replace_in_hash(expected)
     replace_in_hash(diff_hash(response))
   end
 
