@@ -26,9 +26,8 @@ When(/^I set the body as:$/) do |body|
 end
 
 When(/^I set the body with id:$/) do |body|
-  body = body.gsub('$id', $id_hash[$identifier_name].to_s)
-  @body = body
-  @request.body = body
+  @body = BodyBuilder.builder(body)
+  @request.body = BodyBuilder.builder(body)
 end
 
 When(/^I save the '(\w+)' of '(channels|notification|templates)'$/) do |name, type|
