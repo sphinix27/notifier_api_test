@@ -20,7 +20,7 @@ Feature: Negative responses after making a post request with empty parameters.
     When I set the body with id:
     """
          {
-          "channelId": <channelId>,
+          "channelId": "<channelId>",
           "priority": "<priority>",
           "recipients": ["<recipients>"],
           "subject": "<subject>",
@@ -48,7 +48,7 @@ Feature: Negative responses after making a post request with empty parameters.
     """
     Examples:
       | channelId | priority | recipients | subject | content                         | field      | code               |
-      | ""        | NORMAL   | #general   | Test    | A testing message from notifier | channelId  | channelId.required |
+      |           | NORMAL   | #general   | Test    | A testing message from notifier | channelId  | channelId.required |
       | $id       | NORMAL   |            | Test    | A testing message from notifier | recipients | recipients.valid   |
       | $id       | NORMAL   | #general   |         | A testing message from notifier | subject    | subject.required   |
       | $id       | NORMAL   | #general   | Test    |                                 | content    | content.required   |
