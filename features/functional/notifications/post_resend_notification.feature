@@ -43,7 +43,7 @@ Feature: Functional post for Resend Notification
       }
     """
     And The response body is the same as builded
-    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
+    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'RE_SENT'
 
   @delete_channel
   Scenario: Resend notification without name of recipient.
