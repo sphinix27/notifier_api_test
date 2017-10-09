@@ -6,7 +6,7 @@ Feature: CRUD resend notification
     When I set the body as:
     """
     {
-      "name": "Chanel test resend AS:",
+      "name": "Channel test resend AS:",
       "type": "SLACK",
       "configuration": {
       "url": "https://hooks.slack.com/services/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"
@@ -20,7 +20,7 @@ Feature: CRUD resend notification
     When I set the body with id:
       """
       {
-        "channelId": $id,
+        "channelId": $channels_id,
         "priority": "HIGH",
         "recipients": ["#general"],
         "subject": "test API",

@@ -59,7 +59,7 @@ Feature: Negative responses after making a post request with empty parameters.
     When I set the body with id:
     """
          {
-          "channelId": $id,
+          "channelId": $channels_id,
           "priority": "<priority>",
           "recipients": ["<recipients>"],
           "subject": "<subject>",
@@ -100,7 +100,7 @@ Feature: Negative responses after making a post request with empty parameters.
     When I set the body with id:
     """
          {
-          "channelId": $id,
+          "channelId": $channels_id,
           "priority": "<priority>",
           "recipients": ["<recipients>"],
           "subject": "<subject>",
