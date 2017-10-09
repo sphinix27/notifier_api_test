@@ -30,8 +30,15 @@ Feature: GET request for notification endpoint
 
   @delete_channel
   Scenario: Get notification by id
-    Then I make a 'GET' request to '/notifications/$id' until the field 'notification' at 'status' is 'DELIVERED'
+    Given I make a 'GET' request to '/notifications/$id' endpoint
+    When I execute the request to the endpoint
+    Then I expect a '200' status code
+    And I build the response for "notification_status_history" with
+    """
+      {
+        "attachments": {},
+        "templateId": null
 
-
-
-
+      }
+    """
+    And The response body is the same as builded
