@@ -37,10 +37,11 @@ Feature: Post Notification with invalid endpoint
       }
     """
     Examples:
-      | Endpoint        | recipients | content                           |
-      | notific         | "#general" | A testing message from notifier 0 |
-      | notification    | "#general" | A testing message from notifier 1 |
-      | NOTIFICATIONS   | "#general" | A testing message from notifier 2 |
-      | notificationsV1 | "#general" | A testing message from notifier 3 |
-      | notifications1  | "#general" | A testing message from notifier 4 |
-      | notifications!@ | "#general" | A testing message from notifier 5 |
+      | Endpoint          | recipients | content                           |
+      | notific           | "#general" | A testing message from notifier 0 |
+      | notification      | "#general" | A testing message from notifier 1 |
+      | NOTIFICATIONS     | "#general" | A testing message from notifier 2 |
+      | notificationsV1   | "#general" | A testing message from notifier 3 |
+      | notifications1    | "#general" | A testing message from notifier 4 |
+      | notifications!@   | "#general" | A testing message from notifier 5 |
+

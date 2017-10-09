@@ -30,7 +30,7 @@ Feature: Negative responses after making a post request
     And I execute the request to the endpoint
     Then I expect a '400' status code
     And the response body contains excluding 'timestamp':
-    """the "id channel"
+    """
       {
         "status": 400,
         "error": "Bad Request",
