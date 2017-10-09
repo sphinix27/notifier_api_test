@@ -17,7 +17,7 @@ Feature: Negative responses after making a post request
     When I set the body with id:
       """
       {
-        "channelId": $id,
+        "channelId": $channels_id,
         "priority": "HIGH",
         "recipients": ["#recipient_one","#recipient_two"],
         "subject": "Test API",
