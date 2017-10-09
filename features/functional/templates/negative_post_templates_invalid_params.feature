@@ -1,3 +1,4 @@
+@all @functional
 Feature: created template
 
   Scenario: create a new template with invalid or empty params
