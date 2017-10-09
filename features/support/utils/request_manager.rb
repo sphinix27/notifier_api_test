@@ -9,12 +9,11 @@ module RequestManager
     error.response
   end
 
-  def self.generator l,n
-    cad = ""
+  def self.generator(l, n)
+    cad = ''
     n.to_i.times do
       cad += l.to_s
     end
-     cad
+    cad
   end
 end
-

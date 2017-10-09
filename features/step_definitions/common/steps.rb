@@ -25,7 +25,6 @@ When(/^I set the body as:$/) do |body|
   @request.body = body
 end
 
-
 When(/^I set the body with (?:\w+):$/) do |body|
   @body = BodyBuilder.builder(body)
   @request.body = BodyBuilder.builder(body)
@@ -91,7 +90,6 @@ Then(/^the response body contains excluding '([^"]*)':$/) do |exclude, json|
   expect(json).to be_json_eql(@response.body).excluding(exclude)
   puts json
   puts @response.body
-
 end
 
 Then(/^excluding '([^"]*)' and '(.*)' the response body contains:$/) do |exclude1, exclude2, json|
@@ -106,7 +104,7 @@ Then(/^excluding '([^"]*)' and '(.*)' and '(.*)' the response body contains:$/) 
   puts @response.body
 end
 
-Then (/^I generate '(\w+)' letter (\d+) times and save$/) do |letter, n|
-  $id_hash.store('name', RequestManager.generator(letter,n))
+Then(/^I generate '(\w+)' letter (\d+) times and save$/) do |letter, n|
+  $id_hash.store('name', RequestManager.generator(letter, n))
   puts $id_hash
 end
