@@ -20,9 +20,9 @@ Feature: POST request for notification endpoint
     When I set the body with id:
     """
          {
-          "channelId": $id,
-          "priority": "<priority>",
-          "recipients": ["<recipients>"],
+         "channelId": $channels_id,
+         "priority": "<priority>",
+         "recipients": [<recipients>],
           "subject": "<subject>",
           "content": "<content>"
           }
