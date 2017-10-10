@@ -47,11 +47,11 @@ Feature: Negative responses after making a post request with empty parameters.
       }
     """
     Examples:
-      | channelId | priority | recipients | subject | content                         | field      | code               |
-      |           | NORMAL   | #general   | Test    | A testing message from notifier | channelId  | channelId.required |
-      | $id       | NORMAL   |            | Test    | A testing message from notifier | recipients | recipients.valid   |
-      | $id       | NORMAL   | #general   |         | A testing message from notifier | subject    | subject.required   |
-      | $id       | NORMAL   | #general   | Test    |                                 | content    | content.required   |
+      | channelId    | priority | recipients | subject | content                         | field      | code               |
+      |              | NORMAL   | #general   | Test    | A testing message from notifier | channelId  | channelId.required |
+      | $channels_id | NORMAL   |            | Test    | A testing message from notifier | recipients | recipients.valid   |
+      | $channels_id | NORMAL   | #general   |         | A testing message from notifier | subject    | subject.required   |
+      | $channels_id | NORMAL   | #general   | Test    |                                 | content    | content.required   |
 
   @delete_channel
   Scenario Outline: Send a new notification with subject and content empty parameters
@@ -59,7 +59,7 @@ Feature: Negative responses after making a post request with empty parameters.
     When I set the body with id:
     """
          {
-          "channelId": $id,
+          "channelId": $channels_id,
           "priority": "<priority>",
           "recipients": ["<recipients>"],
           "subject": "<subject>",
@@ -100,7 +100,7 @@ Feature: Negative responses after making a post request with empty parameters.
     When I set the body with id:
     """
          {
-          "channelId": $id,
+          "channelId": $channels_id,
           "priority": "<priority>",
           "recipients": ["<recipients>"],
           "subject": "<subject>",
