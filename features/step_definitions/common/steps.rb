@@ -98,13 +98,6 @@ Then(/^excluding '([^"]*)' and '(.*)' the response body contains:$/) do |exclude
   puts @response.body
 end
 
-Then(/^excluding '([^"]*)' and '(.*)' and '(.*)' the response body contains:$/) do |exclude1, exclude2, exclude3, json|
-  expect(json).to be_json_eql(@response.body).excluding(exclude1, exclude2, exclude3)
-  puts json
-  puts @response.body
-end
-
 Then(/^I generate '(\w+)' letter (\d+) times and save for '(\w+)' field$/) do |letter, n, field|
   $id_hash.store(field, RequestManager.generator(letter, n))
-  $id_hash
 end
