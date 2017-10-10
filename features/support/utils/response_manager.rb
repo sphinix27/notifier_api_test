@@ -38,14 +38,7 @@ module ResponseManager
     else
       replace_elements_in_collection(diff_elements_in_collection(JSON.parse(response).first))
     end
-  end
-
-  def self.build_error_response(filename, expected, response)
-    parse_file(filename)
-    expected = JSON.parse(expected)
-    response = JSON.parse(response)
-    replace_in_hash(expected)
-    replace_in_hash(diff_hash(response))
+    @copy
   end
 
   def self.contains_json(expected, response)
