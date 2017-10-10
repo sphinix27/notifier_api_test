@@ -53,10 +53,8 @@ Feature: created template
     And  excluding 'timestamp' and 'exception' the response body contains:
     """
 {
-    "timestamp": 1507646361153,
     "status": 400,
     "error": "Bad Request",
-    "exception": "org.springframework.http.converter.HttpMessageNotReadableException",
     "message": "Bad Request",
     "path": "/templates"
 }
@@ -90,7 +88,6 @@ Feature: created template
 
     """
     {
-    "timestamp": 1507643158967,
     "status": 400,
     "error": "Bad Request",
     "exception": "org.springframework.web.bind.MethodArgumentNotValidException",
@@ -125,10 +122,8 @@ Feature: created template
     And  excluding 'timestamp' and 'exception' the response body contains:
     """
 {
-    "timestamp": 1507646423470,
     "status": 400,
     "error": "Bad Request",
-    "exception": "org.springframework.web.bind.MethodArgumentNotValidException",
     "errors": [
         {
             "field": "name",
@@ -168,10 +163,8 @@ Feature: created template
     And  excluding 'timestamp' and 'exception' the response body contains:
     """
 {
-    "timestamp": 1507646653193,
     "status": 400,
     "error": "Bad Request",
-    "exception": "org.springframework.web.bind.MethodArgumentNotValidException",
     "errors": [
         {
             "field": "name",
