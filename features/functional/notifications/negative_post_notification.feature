@@ -1,5 +1,5 @@
 @all @functional
-Feature: Negative responses after making a post request
+Feature: Negative responses after making a post request .
 
   Background: Create a Channel
     Given I create a 'channel' with status code '200' and body as:
@@ -14,78 +14,40 @@ Feature: Negative responses after making a post request
     """
     And I save the 'id' of 'channels'
 
-  @delete_channel
-  Scenario Outline: Send a new notification without the "id channel" parameter
+  @delete_channel @bug
+  Scenario Outline: Send a new notification with a recipient greater than 256 characters
     Given I make a 'POST' request to '/notifications' endpoint
-    When I set the body as:
-    """
-         {
-          "priority": "<priority>",
-          "recipients": [<recipients>],
-          "subject": "<subject>",
-          "content": "<content>"
-          }
-          """
-    And I execute the request to the endpoint
-    Then I expect a '400' status code
-    And the response body contains excluding 'timestamp':
-    """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "exception": "org.springframework.web.bind.MethodArgumentNotValidException",
-        "errors": [
-           {
-            "field": "channelId",
-            "code": "channelId.required",
-            "defaultMessage": null
-           }
-        ],
-        "message": "Bad Request",
-        "path": "/notifications"
-      }
-    """
-    Examples:
-      | priority | recipients        | subject | content                         |
-      | NORMAL   | "#general","main" | Test1   | A testing message from notifier |
-
-  @delete_channel
-  Scenario Outline: Send a new notification without the "recipients" parameter
-    Given I make a 'POST' request to '/notifications' endpoint
+    And I generate 'a' letter <number_of_letters> times and save
     When I set the body with id:
     """
          {
           "channelId": $channels_id,
-          "priority": "<priority>",
-          "subject": "<subject>",
+          "recipients": ["<recipients>"],
           "content": "<content>"
           }
           """
     And I execute the request to the endpoint
     Then I expect a '400' status code
+    And I save the 'id' of 'notification'
     And the response body contains excluding 'timestamp':
-    """
-      {
-        "status": 400,
-        "error": "Bad Request",
-        "exception": "org.springframework.web.bind.MethodArgumentNotValidException",
-        "errors": [
-         {
+   """
+     {
+    "status": 400,
+    "error": "Bad Request",
+    "exception": "org.springframework.web.bind.MethodArgumentNotValidException",
+    "errors": [
+        {
             "field": "recipients",
-            "code": "NotEmpty",
-            "defaultMessage": "may not be empty"
-         },
-         {
-            "field": "recipients",
-            "code": "recipients.valid",
-            "defaultMessage": null
-         }
-        ],
-        "message": "Bad Request",
-        "path": "/notifications"
-      }
+            "code": "Size",
+            "defaultMessage": "size must be between 4 and 22"
+        }
+    ],
+    "message": "Bad Request",
+    "path": "/notifications"
+     }
     """
     Examples:
-      | priority | subject | content                         |
-      | NORMAL   | Test1   | A testing message from notifier |
-
+      | recipients | content                           | number_of_letters |
+      | $name      | A testing message from notifier 1 | 256               |
+      | $name      | A testing message from notifier 1 | 257               |
+      | $name      | A testing message from notifier 1 | 300               |
