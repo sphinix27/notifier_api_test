@@ -110,3 +110,35 @@ Feature: created template
       "path": "/templates"
    }
     """
+
+
+  @delete_templates
+  Scenario Outline: Create a new template with invalid or empty contentTemplate values
+    Given I make a 'POST' request to '/templates' endpoint
+    And I set the body as:
+    """
+    {
+        "name": "template at-04 team",
+        "subjectTemplate": "test_template",
+        "contentTemplate": "<contentTemplate>",
+        "description": "template"
+    }
+    """
+    When I execute the request to the endpoint
+    Then I expect a '400' status code
+    And I save the 'id' of 'templates'
+    And  excluding 'timestamp' and 'exception' the response body contains:
+    """
+   {
+      "status": 400,
+      "error": "Bad Request",
+      "message": "Bad Request",
+      "path": "/templates"
+   }
+    """
+
+    Examples:
+      | contentTemplate           |
+      | "                      "  |
+      | ....................      |
+      | "                      ." |

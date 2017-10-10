@@ -1,5 +1,5 @@
 Given(/^I make a '(\w+)' request to '(.+)' endpoint$/) do |method, endpoint|
-  @request = ApiRequest.new(EnpointBuilder.builder(endpoint))
+  @request = ApiRequest.new(EndpointBuilder.builder(endpoint))
   @request.method = method
 end
 
@@ -12,7 +12,7 @@ Then(/^I expect a '(\d+)' status code$/) do |status_code_expected|
 end
 
 And(/^I make a '(PUT|POST|GET)' request to '(.+)' with:$/) do |method, endpoint, param|
-  @request = ApiRequest.new(EnpointBuilder.param(endpoint, param.raw))
+  @request = ApiRequest.new(EndpointBuilder.param(endpoint, param.raw))
   @request.method = method
 end
 
