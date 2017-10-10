@@ -25,11 +25,10 @@ Feature: delete channel
     And the response body contains excluding 'timestamp':
     """
       {
-       "timestamp": 1507389627623,
         "status": 404,
         "error": "Not Found",
         "message": "Not Found",
-       "path": "/api/<Endpoint>/$id"
+        "path": "/api/<Endpoint>/$id"
       }
     """
     Examples:

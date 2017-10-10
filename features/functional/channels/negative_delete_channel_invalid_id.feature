@@ -8,12 +8,12 @@ Feature: Negative responses after making a delete request by invalid id
     And excluding 'timestamp' and 'message' the response body contains:
 
     """
-      {
-    "status": <status_code>,
-    "error": "<error>",
-    "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
-    "path": "/channels/<Id>"
-      }
+    {
+      "status": <status_code>,
+      "error": "<error>",
+      "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
+      "path": "/channels/<Id>"
+    }
     """
 
     Examples:
