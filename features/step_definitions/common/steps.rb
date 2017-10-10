@@ -105,6 +105,6 @@ Then(/^excluding '([^"]*)' and '(.*)' and '(.*)' the response body contains:$/) 
 end
 
 Then(/^I generate '(\w+)' letter (\d+) times and save for '(\w+)' field$/) do |letter, n, field|
-  $id_hash.store('field', RequestManager.generator(letter, n))
+  $id_hash.store(field, RequestManager.generator(letter, n))
   puts $id_hash
 end
