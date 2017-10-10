@@ -17,7 +17,7 @@ Feature: Negative responses after making a post request
   @delete_channel @bug
   Scenario Outline: Send a new notification with a parameter greater than 256 characters
     Given I make a 'POST' request to '/notifications' endpoint
-    And I generate 'a' letter <number_of_letters> times and save
+    When I generate 'a' letter <number_of_letters> times and save for 'value' field
     When I set the body with id:
     """
          {
@@ -49,7 +49,7 @@ Feature: Negative responses after making a post request
     """
     Examples:
       | recipients | subject | content                           | number_of_letters | field      | default_message                |
-      | $name      | Test    | A testing message from notifier 1 | 256               | recipients | size must be between 1 and 22  |
-      | $name      | Test    | A testing message from notifier 1 | 257               | recipients | size must be between 1 and 22  |
-      | $name      | Test    | A testing message from notifier 1 | 300               | recipients | size must be between 1 and 22  |
-      | #general   | $name   | A testing message from notifier 1 | 300               | subject    | size must be between 0 and 255 |
+      | $value     | Test    | A testing message from notifier 1 | 256               | recipients | size must be between 1 and 22  |
+      | $value     | Test    | A testing message from notifier 1 | 257               | recipients | size must be between 1 and 22  |
+      | $value     | Test    | A testing message from notifier 1 | 300               | recipients | size must be between 1 and 22  |
+      | #general   | $value  | A testing message from notifier 1 | 300               | subject    | size must be between 0 and 255 |
