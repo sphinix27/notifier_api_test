@@ -101,3 +101,9 @@ end
 Then(/^I generate '(\w+)' letter (\d+) times and save for '(\w+)' field$/) do |letter, n, field|
   $id_hash.store(field, RequestManager.generator(letter, n))
 end
+
+Then(/^The response body should contain the builded response$/) do
+  expect(ResponseManager.contains_json(@builded_hash.to_json, @response.body)).to be(true)
+  puts @builded_hash.to_json
+  puts @response.body
+end

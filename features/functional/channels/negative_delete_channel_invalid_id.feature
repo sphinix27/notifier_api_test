@@ -9,7 +9,7 @@ Feature: Negative responses after making a delete request by invalid id
 
     """
     {
-      "status": 400,
+      "status": <status_code>,
       "error": "<error>",
       "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
       "message": "Bad Request"

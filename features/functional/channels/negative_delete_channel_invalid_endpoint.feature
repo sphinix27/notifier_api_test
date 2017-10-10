@@ -17,7 +17,7 @@ Feature: delete channel
     Then I expect a '200' status code
     And I save the 'id' of 'channels'
 
-
+  @delete_channel
   Scenario Outline: Can't delete a channel with invalid endpoint
     Given I make a 'DELETE' request to '/<Endpoint>/$id' endpoint
     When I execute the request to the endpoint
@@ -27,7 +27,7 @@ Feature: delete channel
       {
         "status": 404,
         "error": "Not Found",
-        "message": "Not Found",
+        "message": "Not Found"
       }
     """
     Examples:
@@ -38,5 +38,4 @@ Feature: delete channel
       | CHANNELS        |
       | channelll       |
       |                 |
-      | chanel24!@#$@!# |
 
