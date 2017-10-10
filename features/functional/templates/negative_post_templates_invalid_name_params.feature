@@ -1,7 +1,7 @@
 @all @functional
 Feature: created template
 
-  Scenario: create a new template with invalid or empty params
+  Scenario: create a new template with invalid or empty name params
     Given I make a 'POST' request to '/templates' endpoint
     When I generate 'a' letter 257 times and save
     And I set the body with name:
@@ -51,7 +51,6 @@ Feature: created template
     Then I expect a '400' status code
     And I save the 'id' of 'channels'
     And  excluding 'timestamp' and 'exception' the response body contains:
-
     """
      {
     "status": 400,
@@ -65,18 +64,23 @@ Feature: created template
     ],
     "message": "Bad Request",
     "path": "/templates"
-}
+     }
     """
+
     Examples:
       | Name         |
       |  tr          |
       |  "sd"        |
-      | ""           |
+      | "     "      |
       | $            |
       | 1            |
       | #$%&/(       |
       | .            |
-      | 1234         |
-      | "%&(()=&$#!" |
+      |              |
+      |    a         |
+
+
+
+
 
 
