@@ -97,3 +97,9 @@ Then(/^excluding '([^"]*)' and '(.*)' the response body contains:$/) do |exclude
   puts json
   puts @response.body
 end
+
+Then(/^The response body should contain the builded response$/) do
+  expect(ResponseManager.contains_json(@builded_hash.to_json, @response.body)).to be(true)
+  puts @builded_hash.to_json
+  puts @response.body
+end

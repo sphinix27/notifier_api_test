@@ -7,14 +7,13 @@ Feature: Negative responses after making a delete request by invalid id
     Then I expect a '400' status code
     And the response body contains excluding 'timestamp':
     """
-      {
-    "timestamp": 1507390985776,
-    "status": 400,
-    "error": "Bad Request",
-    "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
-    "message": "Bad Request",
-    "path": "/channels/<Id>"
-}
+    {
+      "status": 400,
+      "error": "Bad Request",
+      "exception": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException",
+      "message": "Bad Request",
+      "path": "/channels/<Id>"
+    }
     """
     Examples:
       | Id     |
