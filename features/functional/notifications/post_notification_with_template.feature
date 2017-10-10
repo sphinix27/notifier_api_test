@@ -1,3 +1,4 @@
+@all @functional
 Feature: Negative post notification with templates
 
 
